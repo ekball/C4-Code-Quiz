@@ -61,4 +61,121 @@ var questionAndAnswers = [
 
 ];
 
+// main function
+var beginQuiz = function() {
 
+    var start = window.prompt("Are you ready to begin?");
+
+    start = start.toLowerCase();
+
+    if (start === "yes"){
+
+        timeLeft = setInterval(timeLeft, 1000);
+
+        if (timeLeft > 0) {
+
+            questionOne();
+
+            if (timeLeft > 0){
+
+                questionTwo();
+
+                if (timeLeft > 0){
+
+                    questionThree();
+    
+                    if (timeLeft > 0){
+
+                        questionFour();
+        
+                        if (timeLeft > 0){
+
+                            questionFive();
+            
+                        }
+
+                        else {
+        
+                            window.alert("You're out of time!");
+                    
+                            finalScore();
+                    
+                            saveScore();
+                        }
+
+                    }
+
+                    else {
+        
+                        window.alert("You're out of time!");
+                
+                        finalScore();
+                
+                        saveScore();
+                    }
+
+                }
+
+                else {
+        
+                    window.alert("You're out of time!");
+            
+                    finalScore();
+            
+                    saveScore();
+                }
+
+            }
+
+            else {
+        
+                window.alert("You're out of time!");
+        
+                finalScore();
+        
+                saveScore();
+            }
+
+        }
+
+        else {
+        
+            window.alert("You're out of time!");
+    
+            finalScore();
+    
+            saveScore();
+        }
+       
+    }
+
+    else {
+        beginQuiz();
+    }
+};
+
+// save the user's initials  alongside the highscore
+var enterInitials = function () {
+
+    initials = window.prompt("Enter your initials: ");
+
+    return initials;
+
+};
+
+
+var questionOne = function () {
+
+
+
+};
+
+// save the score to local storage
+var saveScore = function () {
+
+};
+
+// print the final score on the screen and ask for initials
+var finalScore = function () {
+
+};
