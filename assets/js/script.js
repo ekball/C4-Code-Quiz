@@ -69,7 +69,7 @@ var questionAndAnswers = [
 
 
 // link id's from html to javascript
-var qAndASection = document.querySelector("#q-and-a-section");
+var qAndASection = document.querySelector(".q-and-a");
 var buttonList = document.querySelector("#button-list");
 
 
@@ -183,40 +183,45 @@ var enterInitials = function () {
 var createButtons = function (n) {
   
     // create list items to hold buttons
-    for (var i = 0; i < 4; i++) {
-    var buttonListItemEl = document.createElement("li");
-    }
+    var buttonListItem1 = document.createElement("li");
+    var buttonListItem2 = document.createElement("li");
+    var buttonListItem3 = document.createElement("li");
+    var buttonListItem4 = document.createElement("li");
+
 
     // create 4 buttons: A, B, C, and D, then attach the buttons to a button list items
-
     var buttonA = document.createElement("button");
     buttonA.type = "button";
     buttonA.id = "button-a";
-    buttonA.value = questionAndAnswers[n].answers.a;
-    buttonListItemEl.appendChild(buttonA);
+    buttonA.textContent = questionAndAnswers[n].answers.a;
+    buttonListItem1.appendChild(buttonA);
 
     var buttonB = document.createElement("button");
     buttonB.type = "button";
     buttonB.id = "button-b";
-    buttonB.value = questionAndAnswers[n].answers.b;
-    buttonListItemEl.appendChild(buttonB);
+    buttonB.textContent = questionAndAnswers[n].answers.b;
+    buttonListItem2.appendChild(buttonB);
 
     var buttonC = document.createElement("button");
     buttonC.type = "button";
     buttonC.id = "button-c";
-    buttonC.value = questionAndAnswers[n].answers.c;
-    buttonListItemEl.appendChild(buttonC);
+    buttonC.textContent = questionAndAnswers[n].answers.c;
+    buttonListItem3.appendChild(buttonC);
 
     var buttonD = document.createElement("button");
     buttonD.type = "button";
     buttonD.id = "button-d";
-    buttonD.value = questionAndAnswers[n].answers.d;
-    buttonListItemEl.appendChild(buttonD);
-
-
+    buttonD.textContent = questionAndAnswers[n].answers.d;
+    buttonListItem4.appendChild(buttonD);
     
-    buttonList.appendChild(buttonListItemEl);
+    // add buttons to the ordered list
+    buttonList.appendChild(buttonListItem1);
+    buttonList.appendChild(buttonListItem2);
+    buttonList.appendChild(buttonListItem3);
+    buttonList.appendChild(buttonListItem4);
 
+    // add ordered list to q-and-a section
+    qAndASection.appendChild(buttonList);
 };
 
 // save the score to local storage
@@ -261,8 +266,6 @@ var clearScores = function () {
 // }
 
 var questionOne = function () {
-
-    debugger;
     
     // change the text of the html for the question
     document.getElementsByClassName("question").innerHTML = questionAndAnswers[0].question;
