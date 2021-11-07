@@ -70,117 +70,25 @@ var questionAndAnswers = [
 
 // link id's from html to javascript
 var qAndASection = document.querySelector(".q-and-a");
-var buttonList = document.querySelector("#button-list");
+
+// create an ordered list in which to store the buttons and use captial letters 
+var buttonList = document.createElement("ol");
+    buttonList.setAttribute("type", "A");
 
 
-// main function
-var beginQuiz = function() {
-
-    var start = window.prompt("Are you ready to begin?");
-
-    start = start.toLowerCase();
-
-    if (start === "yes"){
-
-        timeLeft = setInterval(timeLeft, 1000);
-
-        if (timeLeft > 0) {
-
-            questionOne();
-
-            if (timeLeft > 0){
-
-                questionTwo();
-
-                if (timeLeft > 0){
-
-                    questionThree();
-    
-                    if (timeLeft > 0){
-
-                        questionFour();
-        
-                        if (timeLeft > 0){
-
-                            questionFive();
-            
-                        }
-
-                        else {
-        
-                            window.alert("You're out of time!");
-                    
-                            finalScore();
-                    
-                            saveScore();
-                        }
-
-                    }
-
-                    else {
-        
-                        window.alert("You're out of time!");
-                
-                        finalScore();
-                
-                        saveScore();
-                    }
-
-                }
-
-                else {
-        
-                    window.alert("You're out of time!");
-            
-                    finalScore();
-            
-                    saveScore();
-                }
-
-            }
-
-            else {
-        
-                window.alert("You're out of time!");
-        
-                finalScore();
-        
-                saveScore();
-            }
-
-        }
-
-        else {
-        
-            window.alert("You're out of time!");
-    
-            finalScore();
-    
-            saveScore();
-        }
-       
-    }
-
-    else {
-        beginQuiz();
-    }
-};
 
 // save the user's initials alongside the highscore
 var enterInitials = function () {
 
     highScore.name = window.prompt("Enter your initials: ");
 
-    highScore.score = currentScore;
-
     return highScore;
 
 };
 
+// creates buttons and fills in the text on each as the appropriate answer choices for the question
+// n = which index in the array 'questions and answers' that we are at for the current function
 var createButtons = function (n) {
-  
-    var buttonList = document.createElement("ol");
-    buttonList.setAttribute("type", "A");
 
     // create list items to hold buttons
     var buttonListItem1 = document.createElement("li");
@@ -224,7 +132,14 @@ var createButtons = function (n) {
     qAndASection.appendChild(buttonList);
 };
 
-// save the score to local storage
+// copies the current score at the end of the quiz to the array 'highScore'
+var finalScore = function () {
+
+    highScore.score = currentScore;
+
+};
+
+// save the score and initials to local storage
 var saveScore = function () {
 
     localStorage.setItem('highScore', JSON.stringify(highScore));
@@ -247,23 +162,6 @@ var clearScores = function () {
     localStorage.clear();
 
 };
-
-// var questionOne = function () {
-
-//     for(var i = 0; i<questionAndAnswers.length; i++) {
-
-//         // change the text of the html for the question
-//         document.getElementsByClassName("question").innerHTML = questionAndAnswers[0].question;
-
-//         createButtons();
-
-
-        
-//         if (timeLeft === 0) {
-//             break;
-//         }
-//     }
-// }
 
 var questionOne = function () {
     
@@ -291,7 +189,7 @@ var questionTwo = function () {
     // create buttons that hold answer choices for the second question
     createButtons(1);
 
-}
+};
 
 var questionThree = function () {
 
@@ -305,7 +203,7 @@ var questionThree = function () {
     // create buttons that hold answer choices for the third question
     createButtons(2);
 
-}
+};
 
 var questionFour = function () {
 
@@ -319,7 +217,7 @@ var questionFour = function () {
     // create buttons that hold answer choices for the fourth question
     createButtons(3);
 
-}
+};
 
 var questionFive = function () {
 
@@ -333,5 +231,119 @@ var questionFive = function () {
     // create buttons that hold answer choices for the fifth question
     createButtons(4);
 
-}
-questionFive();
+};
+
+var buttonHandler = function (event) {
+
+    // get target element from event
+    var targetEl = event.target;
+
+
+    // if question is answered correctly, score increases
+    if (targetEl.matches(questionAndAnswers[0].solution)) {
+      console.log("Correctly answered question 1", targetEl);
+      currentscore += 10;
+    } 
+
+    // if question is answered incorrectly, the amount of time left decreases
+    else {
+      console.log("Incorrectly answered question 1", targetEl);
+      timeLeft -=10;
+    }
+};
+
+var endQuiz = function () {
+
+    window.alert("You're out of time!");
+    
+    finalScore();
+
+    enterInitials();
+
+    saveScore();
+
+};
+
+// main function
+var beginQuiz = function() {
+
+    var start = window.prompt("Are you ready to begin?");
+
+    start = start.toLowerCase();
+
+    if (start === "yes"){
+
+        timeLeft = setInterval(timeLeft, 1000);
+
+        if (timeLeft > 0) {
+
+            questionOne();
+
+            if (timeLeft > 0){
+
+                questionTwo();
+
+                if (timeLeft > 0){
+
+                    questionThree();
+    
+                    if (timeLeft > 0){
+
+                        questionFour();
+        
+                        if (timeLeft > 0){
+
+                            questionFive();
+            
+                        }
+
+                        else {
+        
+                            endQuiz();
+
+                        }
+
+                    }
+
+                    else {
+        
+                        endQuiz();
+
+                    }
+
+                }
+
+                else {
+        
+                    endQuiz();
+
+                }
+
+            }
+
+            else {
+
+                endQuiz();
+
+            }
+
+        }
+
+        else {
+        
+            endQuiz();
+
+        }
+
+    }
+
+    else {
+
+        beginQuiz();
+    }
+
+};
+
+beginQuiz();
+
+buttonList.addEventListener("click", buttonHandler);
