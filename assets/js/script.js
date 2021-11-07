@@ -9,8 +9,8 @@ var highScore = [
 // initialize currentScore value to 0
 var currentScore = 0;
 
-// set initial time left at 200 sec until first question is given
-var timeLeft = 200;
+// set initial time left at 60 sec until first question is given
+var timeLeft = 100;
 
 // set up the items that hold questions and answers for easy access in functions
 var questionAndAnswers = [
@@ -91,14 +91,12 @@ var createButtons = function (n) {
     buttonA.id = "button-a";
     buttonA.textContent = questionAndAnswers[n].a;
     buttonListItem1.append(buttonA);
-    console.log(buttonA);
 
     var buttonB = document.createElement("button");
     buttonB.type = "button";
     buttonB.id = "button-b";
     buttonB.textContent = questionAndAnswers[n].b;
     buttonListItem2.append(buttonB);
-    console.log(buttonB);
 
 
     var buttonC = document.createElement("button");
@@ -106,7 +104,6 @@ var createButtons = function (n) {
     buttonC.id = "button-c";
     buttonC.textContent = questionAndAnswers[n].c;
     buttonListItem3.append(buttonC);
-    console.log(buttonC);
 
 
     var buttonD = document.createElement("button");
@@ -114,7 +111,6 @@ var createButtons = function (n) {
     buttonD.id = "button-d";
     buttonD.textContent = questionAndAnswers[n].d;
     buttonListItem4.append(buttonD);
-    console.log(buttonD);
 
     
     // add buttons to the ordered list
@@ -131,23 +127,18 @@ var changeButtons = function (n) {
     // change the content of the 4 buttons
     var buttonA = document.querySelector("#button-a")
     buttonA.textContent = questionAndAnswers[n].a;
-    //buttonListItem1.append(buttonA);
-    console.log(buttonA);
 
     var buttonB = document.querySelector("#button-b")
     buttonB.textContent = questionAndAnswers[n].b;
-    // buttonListItem2.append(buttonB);
-    console.log(buttonB);
+    
 
     var buttonC = document.querySelector("#button-c")
     buttonC.textContent = questionAndAnswers[n].c;
-    // buttonListItem3.append(buttonC);
-    console.log(buttonC);
+    
     
     var buttonD = document.querySelector("#button-d")
     buttonD.textContent = questionAndAnswers[n].d;
-    // buttonListItem4.append(buttonD);
-    console.log(buttonD);
+    
 }
 
 // copies the current score at the end of the quiz to the array 'highScore'
@@ -163,7 +154,6 @@ var saveScore = function () {
     localStorage.setItem('highScore', JSON.stringify(highScore));
 
     console.log("score saved");
-    console.log(JSON.parse(localStorage.getItem('highscore')));
 
 };
 
@@ -370,8 +360,6 @@ var questionFive = function () {
 
 };
 
-
-
 var endQuiz = function () {
 
     if (time = 0) {
@@ -398,6 +386,42 @@ var endQuiz = function () {
     }
 };
 
+var createTimer = function () {
+
+    //debugger;
+
+    // create a container to hold the timer
+    var timerEl = document.createElement("div")
+    timerEl.className = "timer";
+    
+
+    document.body.appendChild(timerEl);
+
+    // set timer to decrease every second
+    var timeInterval = setInterval(function () {
+
+    if (timeLeft > 0 ) {
+
+      timerEl.textContent = timeLeft;
+
+      timeLeft--;
+
+    }
+
+    else {
+  
+        timerEl.textContent = 'Time is up!!';
+
+        clearInterval(timeInterval);
+        
+        endQuiz();
+
+    }
+
+  }, 1000);
+
+};
+
 // main function
 var beginQuiz = function() {
 
@@ -407,8 +431,7 @@ var beginQuiz = function() {
 
     if (start === "yes"){
 
-        timeLeft = setInterval(timeLeft, 1000);
-        console.log(timeLeft);
+        createTimer();
 
             if (timeLeft > 0) {
         
