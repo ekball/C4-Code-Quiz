@@ -70,6 +70,7 @@ var questionAndAnswers = [
 
 // link id's from html to javascript
 var qAndASection = document.querySelector("#q-and-a-section");
+var buttonList = document.querySelector("#button-list");
 
 
 // main function
@@ -177,44 +178,44 @@ var enterInitials = function () {
 };
 
 
-var questionOne = function () {
 
 
-
-};
-
-var createButtons = function () {
-
-    // create a header <h2> for the question
-    var questionEl = document.createElement("h2");
-    questionEl.className = "questions";
-    
-    // attach the header <h2> to the section of html for questions and answers
-    qAndASection.appendChild(buttonContainerEl);
-
-    // create ordered list for buttons
-    var buttonListEl = document.createElement("ol");
-    buttonListEl.className = "buttons";
-    
-    // attach the button list to the section of html for questions and answers
-    qAndASection.appendChild(buttonlistEl);
-
+var createButtons = function (n) {
+  
     // create list items to hold buttons
-    var buttonListItemEl = document.createElement("li")
+    for (var i = 0; i < 4; i++) {
+    var buttonListItemEl = document.createElement("li");
+    }
 
     // create 4 buttons: A, B, C, and D, then attach the buttons to a button list items
 
     var buttonA = document.createElement("button");
-    buttonListEl.appendChild(buttonListItemEl);
+    buttonA.type = "button";
+    buttonA.id = "button-a";
+    buttonA.value = questionAndAnswers[n].answers.a;
+    buttonListItemEl.appendChild(buttonA);
 
     var buttonB = document.createElement("button");
-    buttonListEl.appendChild(buttonListItemEl);
+    buttonB.type = "button";
+    buttonB.id = "button-b";
+    buttonB.value = questionAndAnswers[n].answers.b;
+    buttonListItemEl.appendChild(buttonB);
 
     var buttonC = document.createElement("button");
-    buttonListEl.appendChild(buttonListItemEl);
+    buttonC.type = "button";
+    buttonC.id = "button-c";
+    buttonC.value = questionAndAnswers[n].answers.c;
+    buttonListItemEl.appendChild(buttonC);
 
     var buttonD = document.createElement("button");
-    buttonListEl.appendChild(buttonListItemEl);
+    buttonD.type = "button";
+    buttonD.id = "button-d";
+    buttonD.value = questionAndAnswers[n].answers.d;
+    buttonListItemEl.appendChild(buttonD);
+
+
+    
+    buttonList.appendChild(buttonListItemEl);
 
 };
 
@@ -241,3 +242,35 @@ var clearScores = function () {
     localStorage.clear();
 
 };
+
+// var questionOne = function () {
+
+//     for(var i = 0; i<questionAndAnswers.length; i++) {
+
+//         // change the text of the html for the question
+//         document.getElementsByClassName("question").innerHTML = questionAndAnswers[0].question;
+
+//         createButtons();
+
+
+        
+//         if (timeLeft === 0) {
+//             break;
+//         }
+//     }
+// }
+
+var questionOne = function () {
+
+    debugger;
+    
+    // change the text of the html for the question
+    document.getElementsByClassName("question").innerHTML = questionAndAnswers[0].question;
+
+    console.log(document.getElementsByClassName("question").innerHTML = questionAndAnswers[0].question);
+
+    createButtons(0);
+
+};
+
+questionOne();
