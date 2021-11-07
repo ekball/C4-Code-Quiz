@@ -58,7 +58,7 @@ var questionAndAnswers = [
         question: "Javascript is used for creating a website's _______.",
         answers: {
             a: "style",
-            b: "fine-tuend tasks",
+            b: "fine-tuned tasks",
             c: "Bootstrap", 
             d: "CSS"
         },
@@ -177,11 +177,11 @@ var enterInitials = function () {
 
 };
 
-
-
-
 var createButtons = function (n) {
   
+    var buttonList = document.createElement("ol");
+    buttonList.setAttribute("type", "A");
+
     // create list items to hold buttons
     var buttonListItem1 = document.createElement("li");
     var buttonListItem2 = document.createElement("li");
@@ -267,13 +267,71 @@ var clearScores = function () {
 
 var questionOne = function () {
     
-    // change the text of the html for the question
-    document.getElementsByClassName("question").innerHTML = questionAndAnswers[0].question;
+    // create a h2 header that holds the first question
+    var question1 = document.createElement("h2");
+    question1.textContent = questionAndAnswers[0].question;
 
-    console.log(document.getElementsByClassName("question").innerHTML = questionAndAnswers[0].question);
+    // attach the question in the h2 to the q-and-a section
+    qAndASection.appendChild(question1);
 
+    // create buttons that hold answer choices for the first question
     createButtons(0);
 
 };
 
-questionOne();
+var questionTwo = function () {
+
+    // create a h2 header that holds the second question
+    var question2 = document.createElement("h2");
+    question2.textContent = questionAndAnswers[1].question;
+
+    // attach the question in the h2 to the q-and-a section
+    qAndASection.appendChild(question2);
+
+    // create buttons that hold answer choices for the second question
+    createButtons(1);
+
+}
+
+var questionThree = function () {
+
+    // create a h2 header that holds the third question
+    var question3 = document.createElement("h2");
+    question3.textContent = questionAndAnswers[2].question;
+
+    // attach the question in the h2 to the q-and-a section
+    qAndASection.appendChild(question3);
+
+    // create buttons that hold answer choices for the third question
+    createButtons(2);
+
+}
+
+var questionFour = function () {
+
+    // create a h2 header that holds the fourth question
+    var question4 = document.createElement("h2");
+    question4.textContent = questionAndAnswers[3].question;
+
+    // attach the question in the h2 to the q-and-a section
+    qAndASection.appendChild(question4);
+
+    // create buttons that hold answer choices for the fourth question
+    createButtons(3);
+
+}
+
+var questionFive = function () {
+
+    // create a h2 header that holds the fifth question
+    var question5 = document.createElement("h2");
+    question5.textContent = questionAndAnswers[4].question;
+
+    // attach the question in the h2 to the q-and-a section
+    qAndASection.appendChild(question5);
+
+    // create buttons that hold answer choices for the fifth question
+    createButtons(4);
+
+}
+questionFive();
