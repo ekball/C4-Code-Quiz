@@ -6,6 +6,9 @@ var highScore = [
     }
 ];
 
+var storeName = "";
+var storeScore = "";
+
 // initialize currentScore value to 0
 var currentScore = 0;
 
@@ -151,8 +154,9 @@ var finalScore = function () {
 // save the score and initials to local storage
 var saveScore = function () {
 
-    localStorage.setItem('highScore', JSON.stringify(highScore));
+    var storeName = localStorage.setItem('highScore', JSON.stringify(highScore.name) + ", " + JSON.stringify(highScore.score));
 
+    //var storeScore = localStorage.setItem('highScore', JSON.stringify(highScore.score));
     console.log("score saved");
 
 };
@@ -180,7 +184,7 @@ var loadScore = function () {
     loadContainer.className = "load-list";
 
     var loadListItem1 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", JSON.parse(JSON.stringify(highScore[0])));
+    loadListItem1.textContent = localStorage.getItem(JSON.parse(JSON.stringify(storeName)));
 
     var loadListItem2 = document.createElement("li");
     loadListItem1.textContent = localStorage.getItem("highscore", highScore[1]);
@@ -285,7 +289,7 @@ var endGameButtons = function () {
 
     
     var extraItem = document.querySelector("#item-4")
-    extraItem.remove();
+    extraItem.style.display = "none";
 
 };
 
