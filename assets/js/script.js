@@ -70,8 +70,6 @@ var enterInitials = function () {
 
     highScore.name = window.prompt("Enter your initials: ");
 
-    return highScore;
-
 };
 
 // creates buttons and fills in the text on each as the appropriate answer choices for the question
@@ -83,6 +81,7 @@ var createButtons = function (n) {
     var buttonListItem2 = document.createElement("li");
     var buttonListItem3 = document.createElement("li");
     var buttonListItem4 = document.createElement("li");
+    buttonListItem4.id = "item-4";
 
 
     // create 4 buttons: A, B, C, and D, then attach the buttons to a button list items
@@ -124,6 +123,7 @@ var createButtons = function (n) {
 };
 
 var changeButtons = function (n) {
+
     // change the content of the 4 buttons
     var buttonA = document.querySelector("#button-a")
     buttonA.textContent = questionAndAnswers[n].a;
@@ -157,12 +157,66 @@ var saveScore = function () {
 
 };
 
+var saveButtonHandler = function (event) {
+
+    // get target element from event
+    var targetEl = event.target;
+
+    // if user clicks on save button
+    if (targetEl.textContent === "Save") {
+
+        finalScore();
+        enterInitials();
+        saveScore();
+
+    } 
+
+};
+
 // load score from local storage
 var loadScore = function () {
-    
-    JSON.parse(localStorage.getItem('highscore'));
+
+    var loadContainer = document.createElement("ol");
+    loadContainer.className = "load-list";
+
+    var loadListItem1 = document.createElement("li");
+    loadListItem1.textContent = localStorage.getItem("highscore", JSON.parse(JSON.stringify(highScore[0])));
+
+    var loadListItem2 = document.createElement("li");
+    loadListItem1.textContent = localStorage.getItem("highscore", highScore[1]);
+
+    var loadListItem3 = document.createElement("li");
+    loadListItem1.textContent = localStorage.getItem("highscore", highScore[2]);
+
+    var loadListItem4 = document.createElement("li");
+    loadListItem1.textContent = localStorage.getItem("highscore", highScore[3]);
+
+    var loadListItem5 = document.createElement("li");
+    loadListItem1.textContent = localStorage.getItem("highscore", highScore[4]);
+
+    loadContainer.appendChild(loadListItem1);
+    loadContainer.appendChild(loadListItem2);
+    loadContainer.appendChild(loadListItem3);
+    loadContainer.appendChild(loadListItem4);
+    loadContainer.appendChild(loadListItem5);
+
+    qAndASection.appendChild(loadContainer);
 
     console.log("score loaded");
+
+};
+
+var loadButtonHandler = function (event) {
+
+    // get target element from event
+    var targetEl = event.target;
+
+    // if user clicks on save button
+    if (targetEl.textContent === "Load") {
+
+        loadScore();
+
+    } 
 
 };
 
@@ -170,6 +224,68 @@ var loadScore = function () {
 var clearScores = function () {
 
     localStorage.clear();
+
+    window.alert("All Scores Have Been Erased");
+
+};
+
+var clearButtonHandler = function (event) {
+
+    // get target element from event
+    var targetEl = event.target;
+
+    // if user clicks on save button
+    if (targetEl.textContent === "Clear") {
+
+        clearScores();
+
+    } 
+
+};
+
+var restartButtonHandler = function (event) {
+
+    // get target element from event
+    var targetEl = event.target;
+
+    // if user clicks on save button
+    if (targetEl.textContent === "Restart") {
+
+        beginQuiz();
+
+    } 
+
+};
+
+var endGameButtons = function () {
+
+    // replace question header with text for end game status
+    var endStatus = document.querySelector("#question-header");
+    endStatus.className = "ending-header";
+    endStatus.textContent = 'Congratulations on finishing! Would you like to save your score, load a score, or restart the quiz?';
+    
+
+    // change the content of 4 buttons and apply new event listeners and text content
+    var saveButton = document.querySelector("#button-a")
+    saveButton.textContent = 'Save';
+
+    buttonList.addEventListener("click", saveButtonHandler);
+
+
+    var loadButton = document.querySelector("#button-b")
+    loadButton.textContent = 'Load';
+
+    loadButton.addEventListener("click", loadButtonHandler);
+
+    
+    var clearButton = document.querySelector("#button-c")
+    clearButton.textContent = 'Clear';
+
+    buttonList.addEventListener("click", clearButtonHandler);
+
+    
+    var extraItem = document.querySelector("#item-4")
+    extraItem.remove();
 
 };
 
@@ -180,9 +296,10 @@ var buttonHandlerQ1 = function (event) {
 
     // if question is answered correctly, score increases
     if (targetEl.textContent === "CSS") {
-     console.log("Correctly answered question 1", targetEl);
-      currentScore += 10;
-      questionTwo(); 
+        console.log("Correctly answered question 1", targetEl);
+        currentScore = currentScore + 10;
+        console.log(currentScore);
+        questionTwo(); 
     } 
 
     // if question is answered incorrectly, the amount of time left decreases
@@ -202,8 +319,10 @@ var buttonHandlerQ2 = function (event) {
     // if question is answered correctly, score increases
     if (targetEl.textContent === "Javascript") {
      console.log("Correctly answered question 2", targetEl);
-      currentScore += 10;
-      questionThree();
+     currentScore = currentScore + 10;
+     console.log(currentScore);
+
+     questionThree();
     } 
 
     // if question is answered incorrectly, the amount of time left decreases
@@ -223,8 +342,10 @@ var buttonHandlerQ3 = function (event) {
     // if question is answered correctly, score increases
     if (targetEl.textContent === "structure") {
      console.log("Correctly answered question 3", targetEl);
-      currentScore += 10;
-      questionFour();
+     currentScore = currentScore + 10;
+     console.log(currentScore);
+
+     questionFour();
     } 
 
     // if question is answered incorrectly, the amount of time left decreases
@@ -244,8 +365,10 @@ var buttonHandlerQ4 = function (event) {
     // if question is answered correctly, score increases
     if (targetEl.textContent === "style") {
      console.log("Correctly answered question 4", targetEl);
-      currentScore += 10;
-      questionFive();
+     currentScore = currentScore + 10;
+     console.log(currentScore);
+
+     questionFive();
     } 
 
     // if question is answered incorrectly, the amount of time left decreases
@@ -264,9 +387,10 @@ var buttonHandlerQ5 = function (event) {
 
     // if question is answered correctly, score increases
     if (targetEl.textContent === "fine-tuned tasks") {
-     console.log("Correctly answered question 5", targetEl);
-      currentScore += 10;
-      endQuiz();
+        console.log("Correctly answered question 5", targetEl);
+        currentScore = currentScore + 10;
+        console.log(currentScore);
+        endQuiz();
     } 
 
     // if question is answered incorrectly, the amount of time left decreases
@@ -365,49 +489,55 @@ var endQuiz = function () {
     if (time = 0) {
         window.alert("You're out of time!");
         
-        finalScore();
+        endGameButtons();
 
-        enterInitials();
+        // finalScore();
 
-        saveScore();
+        // enterInitials();
+
+        // saveScore();
 
     }
 
     else {
 
-        window.alert("You finished the quiz! Your final score is: " + currentScore);
+        window.alert("Your final score is: " + currentScore);
 
-        finalScore();
+        endGameButtons();
 
-        enterInitials();
+        // finalScore();
 
-        saveScore();
+        // enterInitials();
+
+        // saveScore();
 
     }
 };
 
 var createTimer = function () {
 
-    //debugger;
+    var timeLeft = 100;
 
     // create a container to hold the timer
     var timerEl = document.createElement("div")
     timerEl.className = "timer";
     
-
+    // attach the timer container to the body of the html
     document.body.appendChild(timerEl);
 
     // set timer to decrease every second
     var timeInterval = setInterval(function () {
 
+    // if there is still time, display the countdown
     if (timeLeft > 0 ) {
 
-      timerEl.textContent = timeLeft;
+      timerEl.textContent = 'Time Remaining: ' + timeLeft;
 
       timeLeft--;
 
     }
 
+    // otherwise, clear the counter and end the quiz
     else {
   
         timerEl.textContent = 'Time is up!!';
@@ -422,6 +552,18 @@ var createTimer = function () {
 
 };
 
+var scoreDisplay = function () {
+
+    // create a container to display the score
+    var scoreDisplayEl = document.createElement("div")
+    scoreDisplayEl.className = "score-display";
+    scoreDisplayEl.innerHTML = 'Your current score is: ' + currentScore;
+
+    // attach the score display container to the body of the html
+    document.body.appendChild(scoreDisplayEl);
+
+}
+
 // main function
 var beginQuiz = function() {
 
@@ -431,7 +573,9 @@ var beginQuiz = function() {
 
     if (start === "yes"){
 
-        createTimer();
+        //createTimer();
+        //scoreDisplay();
+
 
             if (timeLeft > 0) {
         
@@ -446,19 +590,21 @@ var beginQuiz = function() {
             }
         
             else if (timeLeft > 0 && i === 2) {
-        
+
                 questionThree();
         
             }
         
             else if (timeLeft > 0 && i === 3) {
-        
+                debugger;
+
                 questionFour();
         
             }
         
             else if (timeLeft > 0 && i === 4) {
-        
+                debugger;
+
                 questionFive();
         
             }
