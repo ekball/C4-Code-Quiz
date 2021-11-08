@@ -1,3 +1,6 @@
+// Next Task: recreate the highscore array into two separate arrays to store in localStorage, then pull from localStorage
+
+
 // set empty arrays to store high scores and corresponding initials
 var highScore = [
     {
@@ -154,7 +157,7 @@ var finalScore = function () {
 // save the score and initials to local storage
 var saveScore = function () {
 
-    var storeName = localStorage.setItem('highScore', JSON.stringify(highScore.name) + ", " + JSON.stringify(highScore.score));
+    storeName = localStorage.setItem('highScore', JSON.stringify(highScore.name) + ", " + JSON.stringify(highScore.score));
 
     //var storeScore = localStorage.setItem('highScore', JSON.stringify(highScore.score));
     console.log("score saved");
@@ -184,7 +187,8 @@ var loadScore = function () {
     loadContainer.className = "load-list";
 
     var loadListItem1 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem(JSON.parse(JSON.stringify(storeName)));
+    var test = localStorage.getItem(JSON.parse(JSON.stringify(storeName)));
+    loadListItem1.textContent = test;
 
     var loadListItem2 = document.createElement("li");
     loadListItem1.textContent = localStorage.getItem("highscore", highScore[1]);

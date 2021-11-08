@@ -1,23 +1,24 @@
-body {
+/* body {
     text-align: center;
 }
 
 .q-and-a-section {
+text-align: center;
+}
+
+body ol {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.button-a, .button-b, .button-c, .button-d {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
 
 }
 
-.button-a {
-
-}
-
-.button-b {
-    
-}
-
-.button-c {
-    
-}
-
-.button-d {
-    
-}
+.button-b, .button-c, .button-d */
