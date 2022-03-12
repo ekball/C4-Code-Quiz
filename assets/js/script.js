@@ -570,68 +570,91 @@ function questionFiveValidation () {
     // clear timer
     clearInterval(timer);
 
-    // record highscore
-    recordScore();
+    // record highscore (score being remaining time)
+    highscoreInfo(timer);
+}
+
+// function to recieve user input for name and show final score
+function highscoreInfo(timer) {
+
+    // set the remaining time as the final score
+    var finalScore = timeLeft;
+
+    // clear timer for precaution
+    clearInterval(timer);
+
+    // stop timer 
+    document.querySelector("timer").textContent = "Quiz completed. Thanks for playing!"
+
+    // clear the quiz content from the page
+    codeQuizContent.innerHTML = "";
+
+    // let user know what their score is
+    var userScore = document.createElement("h2");
+    userScore.textContent = "Your final score is: " + finalScore + ".";
+    codeQuizContent.appendChild(userScore);
+
+        // recieve user initials to save alongside score
+        var userInitials = document.createElement("input");
+        userInitials.placeholder = " ** Please Enter Initials Here **"
+        codeQuizContent.appendChild(userInitials);
+
+    // create a button to save score to localStorage
+    var saveInfo = document.createElement("button");
+    saveInfo.textContent = "Submit Score"
+    saveInfo.setAttribute("type", "submit");
+    saveInfo.setAttribute("onclick", "inStorage()");
+    codeQuizContent.appendChild(saveInfo);
+
+    // add id and classname for styling 
+    userScore.id = "user-score";
+    userInitials.id = "user-initials";
+    userInitials.className = "user-initials";
+    saveInfo.id = "save-btn";
+    saveInfo.className = "save-btn"
+}
+
+// save newest score to highscores record in localStorage
+function recordScore() {
+
+    // if there is no records of either scores or player names, create two new arrays
+    if(!localStorage.getItem("highscores") && !localStorage.getItem("players")){
+        highscores = [];
+        players = [];
+    }
+
+    else {
+        // otherwise, use the data gathered from past attempts and display to user
+        var highscores = localStorage.getItem("highscores");
+        highscores = JSON.parse(highscores);
+
+        var players = localStorage.getItem("players");
+        players = JSON.parse(players);
+    };
+
+    // push the users score into the highscores array
+    var finalScore = timeLeft;
+    highscores.push(finalScore);
+
+    // push the users name into the players array
+    userInfo = document.querySelector("#user-initials");
+    var userInput = userInfo.value;
+    players.push(userInput);
+
+    // stringify the score/player info in the arrays so localStorage can use it
+    localStorage.setItem("players", JSON.stringify(players));
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+}
+
+// pull the history of players and their highscores from local storage
+function loadScores() {
+
 }
 
 
 
 
 
-
-
-// set empty arrays to store high scores and corresponding initials
-var highScore = [
-    {
-        name: "",
-        score: 0
-    }
-];
-// initialize currentScore value to 0
-var currentScore = 0;
-
-// link id's from html to javascript
-var qAndASection = document.querySelector(".q-and-a");
-
-// save the user's initials alongside the highscore
-var enterInitials = function () {
-
-    highScore.name = window.prompt("Enter your initials: ");
-
-};
-
-// copies the current score at the end of the quiz to the array 'highScore'
-var finalScore = function () {
-
-    highScore.score = currentScore;
-
-};
-
-// save the score and initials to local storage
-var saveScore = function () {
-
-    storeName = localStorage.setItem('highScore', JSON.stringify(highScore.name) + ", " + JSON.stringify(highScore.score));
-
-    //var storeScore = localStorage.setItem('highScore', JSON.stringify(highScore.score));
-    console.log("score saved");
-
-};
-
-var saveButtonHandler = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-    // if user clicks on save button
-    if (targetEl.textContent === "Save") {
-
-        finalScore();
-        enterInitials();
-        saveScore();
-
-    } 
-
-};
 
 // load score from local storage
 var loadScore = function () {
@@ -681,178 +704,7 @@ var loadButtonHandler = function (event) {
 
 };
 
-// clear local memory
-var clearScores = function () {
-
-    localStorage.clear();
-
-    window.alert("All Scores Have Been Erased");
-
-};
-
-var clearButtonHandler = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-    // if user clicks on save button
-    if (targetEl.textContent === "Clear") {
-
-        clearScores();
-
-    } 
-
-};
-
-var restartButtonHandler = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-    // if user clicks on save button
-    if (targetEl.textContent === "Restart") {
-
-        beginQuiz();
-
-    } 
-
-};
-
-var endGameButtons = function () {
-
-    // replace question header with text for end game status
-    var endStatus = document.querySelector("#question-header");
-    endStatus.className = "ending-header";
-    endStatus.textContent = 'Congratulations on finishing! Would you like to save your score, load a score, or restart the quiz?';
-    
-
-    // change the content of 4 buttons and apply new event listeners and text content
-    var saveButton = document.querySelector("#button-a")
-    saveButton.textContent = 'Save';
-
-    buttonList.addEventListener("click", saveButtonHandler);
-
-
-    var loadButton = document.querySelector("#button-b")
-    loadButton.textContent = 'Load';
-
-    loadButton.addEventListener("click", loadButtonHandler);
-
-    
-    var clearButton = document.querySelector("#button-c")
-    clearButton.textContent = 'Clear';
-
-    buttonList.addEventListener("click", clearButtonHandler);
-
-    
-    var extraItem = document.querySelector("#item-4")
-    extraItem.style.display = "none";
-
-};
-
-var endQuiz = function () {
-
-    if (time = 0) {
-        window.alert("You're out of time!");
-        
-        endGameButtons();
-
-        // finalScore();
-
-        // enterInitials();
-
-        // saveScore();
-
-    }
-
-    else {
-
-        window.alert("Your final score is: " + currentScore);
-
-        endGameButtons();
-
-        // finalScore();
-
-        // enterInitials();
-
-        // saveScore();
-
-    }
-};
-
-
-
-var scoreDisplay = function () {
-
-    // create a container to display the score
-    var scoreDisplayEl = document.createElement("div")
-    scoreDisplayEl.className = "score-display";
-    scoreDisplayEl.innerHTML = 'Your current score is: ' + currentScore;
-
-    // attach the score display container to the body of the html
-    document.body.appendChild(scoreDisplayEl);
-
-}
-
-// main function
-var beginQuiz = function() {
-
-    var start = window.prompt("Are you ready to begin?");
-
-    start = start.toLowerCase();
-
-    if (start === "yes"){
-
-        //createTimer();
-        //scoreDisplay();
-
-
-            if (timeLeft > 0) {
-        
-                questionOne();
-        
-            }
-
-            else if (timeLeft > 0 && i === 1) {
-        
-                questionTwo();
-        
-            }
-        
-            else if (timeLeft > 0 && i === 2) {
-
-                questionThree();
-        
-            }
-        
-            else if (timeLeft > 0 && i === 3) {
-                debugger;
-
-                questionFour();
-        
-            }
-        
-            else if (timeLeft > 0 && i === 4) {
-                debugger;
-
-                questionFive();
-        
-            }
-        
-            else {
-                endQuiz();
-            }
-    }
-
-    else {
-
-        beginQuiz();
-
-    }
-
-};
-
-beginQuiz();
+questionOne();
 
 
 
