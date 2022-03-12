@@ -649,59 +649,53 @@ function recordScore() {
 // pull the history of players and their highscores from local storage
 function loadScores() {
 
-}
+    // clear screen and clear timer as precaution
+    codeQuizContent.innerHTML = "";
+    clearInterval(timer);
 
+    // retrieve the arrays from localStorage
+    var highscores = localStorage.getItem(highscores);
+    var players = localStorage.getItem(players);
 
+    // parse the info in the arrays so it can be used
+    highscores = JSON.parse(highscores);
+    players = JSON.parse(players);
 
+    var header = document.createElement("h2");
+    header.textContent = "Here are the highscores for this quiz:"
 
+    // append the h2 to the page
+    codeQuizContent.appendChild(header);
 
+    // create an unordered list to hold the records
+    var records = document.createElement("ul");
+    records.className = "records";
 
-// load score from local storage
-var loadScore = function () {
+    // append the list to the page
+    codeQuizContent.appendChild(records);
 
-    var loadContainer = document.createElement("ol");
-    loadContainer.className = "load-list";
+    // loop through the arrays to show all available records
+    for (var i = 0; i < players.length; i++) {
+        
+        // create list item element for each name/score combo
+        var listItem = document.createElement("li");
+        listItem.className = "list-of-players";
 
-    var loadListItem1 = document.createElement("li");
-    var test = localStorage.getItem(JSON.parse(JSON.stringify(storeName)));
-    loadListItem1.textContent = test;
+        // set text content
+        listItem.textContent = player[i] + ": " + highscores[i];
 
-    var loadListItem2 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[1]);
+        // attach to the bottom of the list
+        records.appendChild(listItem);
+    };
 
-    var loadListItem3 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[2]);
+    // create button to restart quiz
+    var restartQuizButton = document.createElement("button");
+    restartQuizButton.textContent = "Restart Quiz";
 
-    var loadListItem4 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[3]);
+    // give click functionality
+    restartQuizButton.setAttribute("onclick", "restart()");
 
-    var loadListItem5 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[4]);
-
-    loadContainer.appendChild(loadListItem1);
-    loadContainer.appendChild(loadListItem2);
-    loadContainer.appendChild(loadListItem3);
-    loadContainer.appendChild(loadListItem4);
-    loadContainer.appendChild(loadListItem5);
-
-    qAndASection.appendChild(loadContainer);
-
-    console.log("score loaded");
-
-};
-
-var loadButtonHandler = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-    // if user clicks on save button
-    if (targetEl.textContent === "Load") {
-
-        loadScore();
-
-    } 
-
+    codeQuizContent.appendChild(restartQuizButton);
 };
 
 questionOne();
