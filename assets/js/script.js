@@ -155,6 +155,42 @@ function questionOne() {
     questionAndAnswers.shift();
 };
 
+// validate answer choice for first question
+function questionOneValidation () {
+
+    // if correct answer was chosen
+    if(event.target.getAttribute("isValid") == "correct") {
+        // create a response for user to see if choice was correct
+        var response = document.querySelector("h3");
+        response.className = "input-response";
+
+        // create text for response
+        response.textContent = "You selected the correct answer!"
+
+        // append the response element to the page
+        codeQuizContent.appendChild(response);
+    }
+
+    // otherwise if choice was incorrect
+    else {
+        // penalize remaining time on timer by 15 sec
+        timeLeft = timeLeft - 15;
+
+        // create a response to let user know that choice was incorrect
+        var response = document.querySelector("h3");
+        response.className = "input-response";
+
+        // create text for response
+        response.textContent = "The answer you selected was incorrect!"
+
+        // append the response element to the page
+        codeQuizContent.appendChild(response);
+    }
+
+    // proceed to second question
+    questionTwo();
+}
+
 // function asks second question
 function questionTwo() {
 
@@ -214,6 +250,41 @@ function questionTwo() {
     questionAndAnswers.shift();
 };
 
+// validate answer choice for second question
+function questionTwoValidation () {
+
+    // if correct answer was chosen
+    if(event.target.getAttribute("isValid") == "correct") {
+        // create a response for user to see if choice was correct
+        var response = document.querySelector("h3");
+        response.className = "input-response";
+
+        // create text for response
+        response.textContent = "You selected the correct answer!"
+
+        // append the response element to the page
+        codeQuizContent.appendChild(response);
+    }
+
+    // otherwise if choice was incorrect
+    else {
+        // penalize remaining time on timer by 15 sec
+        timeLeft = timeLeft - 15;
+
+        // create a response to let user know that choice was incorrect
+        var response = document.querySelector("h3");
+        response.className = "input-response";
+
+        // create text for response
+        response.textContent = "The answer you selected was incorrect!"
+
+        // append the response element to the page
+        codeQuizContent.appendChild(response);
+    }
+
+    // proceed to third question
+    questionThird();
+}
 
 // function asks third question
 function questionThree() {
@@ -274,6 +345,41 @@ function questionThree() {
     questionAndAnswers.shift();
 };
 
+// validate answer choice for third question
+function questionThreeValidation () {
+
+    // if correct answer was chosen
+    if(event.target.getAttribute("isValid") == "correct") {
+        // create a response for user to see if choice was correct
+        var response = document.querySelector("h3");
+        response.className = "input-response";
+
+        // create text for response
+        response.textContent = "You selected the correct answer!"
+
+        // append the response element to the page
+        codeQuizContent.appendChild(response);
+    }
+
+    // otherwise if choice was incorrect
+    else {
+        // penalize remaining time on timer by 15 sec
+        timeLeft = timeLeft - 15;
+
+        // create a response to let user know that choice was incorrect
+        var response = document.querySelector("h3");
+        response.className = "input-response";
+
+        // create text for response
+        response.textContent = "The answer you selected was incorrect!"
+
+        // append the response element to the page
+        codeQuizContent.appendChild(response);
+    }
+
+    // proceed to fourth question
+    questionFour();
+}
 
 // function asks fourth question
 function questionFour() {
@@ -334,6 +440,41 @@ function questionFour() {
     questionAndAnswers.shift();
 };
 
+// validate answer choice for fourth question
+function questionFourValidation () {
+
+    // if correct answer was chosen
+    if(event.target.getAttribute("isValid") == "correct") {
+        // create a response for user to see if choice was correct
+        var response = document.querySelector("h3");
+        response.className = "input-response";
+
+        // create text for response
+        response.textContent = "You selected the correct answer!"
+
+        // append the response element to the page
+        codeQuizContent.appendChild(response);
+    }
+
+    // otherwise if choice was incorrect
+    else {
+        // penalize remaining time on timer by 15 sec
+        timeLeft = timeLeft - 15;
+
+        // create a response to let user know that choice was incorrect
+        var response = document.querySelector("h3");
+        response.className = "input-response";
+
+        // create text for response
+        response.textContent = "The answer you selected was incorrect!"
+
+        // append the response element to the page
+        codeQuizContent.appendChild(response);
+    }
+
+    // proceed to fifth question
+    questionFive();
+}
 
 // function asks fifth question
 function questionFive() {
@@ -394,279 +535,324 @@ function questionFive() {
     questionAndAnswers.shift();
 };
 
-// // set empty arrays to store high scores and corresponding initials
-// var highScore = [
-//     {
-//         name: "",
-//         score: 0
-//     }
-// ];
-// // initialize currentScore value to 0
-// var currentScore = 0;
+// validate answer choice for fifth question
+function questionFiveValidation () {
 
-// // link id's from html to javascript
-// var qAndASection = document.querySelector(".q-and-a");
+    // if correct answer was chosen
+    if(event.target.getAttribute("isValid") == "correct") {
+        // create a response for user to see if choice was correct
+        var response = document.querySelector("h3");
+        response.className = "input-response";
 
-// // save the user's initials alongside the highscore
-// var enterInitials = function () {
+        // create text for response
+        response.textContent = "You selected the correct answer!"
 
-//     highScore.name = window.prompt("Enter your initials: ");
+        // append the response element to the page
+        codeQuizContent.appendChild(response);
+    }
 
-// };
+    // otherwise if choice was incorrect
+    else {
+        // penalize remaining time on timer by 15 sec
+        timeLeft = timeLeft - 15;
 
-// // copies the current score at the end of the quiz to the array 'highScore'
-// var finalScore = function () {
+        // create a response to let user know that choice was incorrect
+        var response = document.querySelector("h3");
+        response.className = "input-response";
 
-//     highScore.score = currentScore;
+        // create text for response
+        response.textContent = "The answer you selected was incorrect!"
 
-// };
+        // append the response element to the page
+        codeQuizContent.appendChild(response);
+    }
 
-// // save the score and initials to local storage
-// var saveScore = function () {
+    // clear timer
+    clearInterval(timer);
 
-//     storeName = localStorage.setItem('highScore', JSON.stringify(highScore.name) + ", " + JSON.stringify(highScore.score));
+    // record highscore
+    recordScore();
+}
 
-//     //var storeScore = localStorage.setItem('highScore', JSON.stringify(highScore.score));
-//     console.log("score saved");
 
-// };
 
-// var saveButtonHandler = function (event) {
 
-//     // get target element from event
-//     var targetEl = event.target;
 
-//     // if user clicks on save button
-//     if (targetEl.textContent === "Save") {
 
-//         finalScore();
-//         enterInitials();
-//         saveScore();
 
-//     } 
+// set empty arrays to store high scores and corresponding initials
+var highScore = [
+    {
+        name: "",
+        score: 0
+    }
+];
+// initialize currentScore value to 0
+var currentScore = 0;
 
-// };
+// link id's from html to javascript
+var qAndASection = document.querySelector(".q-and-a");
 
-// // load score from local storage
-// var loadScore = function () {
+// save the user's initials alongside the highscore
+var enterInitials = function () {
 
-//     var loadContainer = document.createElement("ol");
-//     loadContainer.className = "load-list";
+    highScore.name = window.prompt("Enter your initials: ");
 
-//     var loadListItem1 = document.createElement("li");
-//     var test = localStorage.getItem(JSON.parse(JSON.stringify(storeName)));
-//     loadListItem1.textContent = test;
+};
 
-//     var loadListItem2 = document.createElement("li");
-//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[1]);
+// copies the current score at the end of the quiz to the array 'highScore'
+var finalScore = function () {
 
-//     var loadListItem3 = document.createElement("li");
-//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[2]);
+    highScore.score = currentScore;
 
-//     var loadListItem4 = document.createElement("li");
-//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[3]);
+};
 
-//     var loadListItem5 = document.createElement("li");
-//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[4]);
+// save the score and initials to local storage
+var saveScore = function () {
 
-//     loadContainer.appendChild(loadListItem1);
-//     loadContainer.appendChild(loadListItem2);
-//     loadContainer.appendChild(loadListItem3);
-//     loadContainer.appendChild(loadListItem4);
-//     loadContainer.appendChild(loadListItem5);
+    storeName = localStorage.setItem('highScore', JSON.stringify(highScore.name) + ", " + JSON.stringify(highScore.score));
 
-//     qAndASection.appendChild(loadContainer);
+    //var storeScore = localStorage.setItem('highScore', JSON.stringify(highScore.score));
+    console.log("score saved");
 
-//     console.log("score loaded");
+};
 
-// };
+var saveButtonHandler = function (event) {
 
-// var loadButtonHandler = function (event) {
+    // get target element from event
+    var targetEl = event.target;
 
-//     // get target element from event
-//     var targetEl = event.target;
+    // if user clicks on save button
+    if (targetEl.textContent === "Save") {
 
-//     // if user clicks on save button
-//     if (targetEl.textContent === "Load") {
+        finalScore();
+        enterInitials();
+        saveScore();
 
-//         loadScore();
+    } 
 
-//     } 
+};
 
-// };
+// load score from local storage
+var loadScore = function () {
 
-// // clear local memory
-// var clearScores = function () {
+    var loadContainer = document.createElement("ol");
+    loadContainer.className = "load-list";
 
-//     localStorage.clear();
+    var loadListItem1 = document.createElement("li");
+    var test = localStorage.getItem(JSON.parse(JSON.stringify(storeName)));
+    loadListItem1.textContent = test;
 
-//     window.alert("All Scores Have Been Erased");
+    var loadListItem2 = document.createElement("li");
+    loadListItem1.textContent = localStorage.getItem("highscore", highScore[1]);
 
-// };
+    var loadListItem3 = document.createElement("li");
+    loadListItem1.textContent = localStorage.getItem("highscore", highScore[2]);
 
-// var clearButtonHandler = function (event) {
+    var loadListItem4 = document.createElement("li");
+    loadListItem1.textContent = localStorage.getItem("highscore", highScore[3]);
 
-//     // get target element from event
-//     var targetEl = event.target;
+    var loadListItem5 = document.createElement("li");
+    loadListItem1.textContent = localStorage.getItem("highscore", highScore[4]);
 
-//     // if user clicks on save button
-//     if (targetEl.textContent === "Clear") {
+    loadContainer.appendChild(loadListItem1);
+    loadContainer.appendChild(loadListItem2);
+    loadContainer.appendChild(loadListItem3);
+    loadContainer.appendChild(loadListItem4);
+    loadContainer.appendChild(loadListItem5);
 
-//         clearScores();
+    qAndASection.appendChild(loadContainer);
 
-//     } 
+    console.log("score loaded");
 
-// };
+};
 
-// var restartButtonHandler = function (event) {
+var loadButtonHandler = function (event) {
 
-//     // get target element from event
-//     var targetEl = event.target;
+    // get target element from event
+    var targetEl = event.target;
 
-//     // if user clicks on save button
-//     if (targetEl.textContent === "Restart") {
+    // if user clicks on save button
+    if (targetEl.textContent === "Load") {
 
-//         beginQuiz();
+        loadScore();
 
-//     } 
+    } 
 
-// };
+};
 
-// var endGameButtons = function () {
+// clear local memory
+var clearScores = function () {
 
-//     // replace question header with text for end game status
-//     var endStatus = document.querySelector("#question-header");
-//     endStatus.className = "ending-header";
-//     endStatus.textContent = 'Congratulations on finishing! Would you like to save your score, load a score, or restart the quiz?';
+    localStorage.clear();
+
+    window.alert("All Scores Have Been Erased");
+
+};
+
+var clearButtonHandler = function (event) {
+
+    // get target element from event
+    var targetEl = event.target;
+
+    // if user clicks on save button
+    if (targetEl.textContent === "Clear") {
+
+        clearScores();
+
+    } 
+
+};
+
+var restartButtonHandler = function (event) {
+
+    // get target element from event
+    var targetEl = event.target;
+
+    // if user clicks on save button
+    if (targetEl.textContent === "Restart") {
+
+        beginQuiz();
+
+    } 
+
+};
+
+var endGameButtons = function () {
+
+    // replace question header with text for end game status
+    var endStatus = document.querySelector("#question-header");
+    endStatus.className = "ending-header";
+    endStatus.textContent = 'Congratulations on finishing! Would you like to save your score, load a score, or restart the quiz?';
     
 
-//     // change the content of 4 buttons and apply new event listeners and text content
-//     var saveButton = document.querySelector("#button-a")
-//     saveButton.textContent = 'Save';
+    // change the content of 4 buttons and apply new event listeners and text content
+    var saveButton = document.querySelector("#button-a")
+    saveButton.textContent = 'Save';
 
-//     buttonList.addEventListener("click", saveButtonHandler);
+    buttonList.addEventListener("click", saveButtonHandler);
 
 
-//     var loadButton = document.querySelector("#button-b")
-//     loadButton.textContent = 'Load';
+    var loadButton = document.querySelector("#button-b")
+    loadButton.textContent = 'Load';
 
-//     loadButton.addEventListener("click", loadButtonHandler);
-
-    
-//     var clearButton = document.querySelector("#button-c")
-//     clearButton.textContent = 'Clear';
-
-//     buttonList.addEventListener("click", clearButtonHandler);
+    loadButton.addEventListener("click", loadButtonHandler);
 
     
-//     var extraItem = document.querySelector("#item-4")
-//     extraItem.style.display = "none";
+    var clearButton = document.querySelector("#button-c")
+    clearButton.textContent = 'Clear';
 
-// };
+    buttonList.addEventListener("click", clearButtonHandler);
 
-// var endQuiz = function () {
+    
+    var extraItem = document.querySelector("#item-4")
+    extraItem.style.display = "none";
 
-//     if (time = 0) {
-//         window.alert("You're out of time!");
+};
+
+var endQuiz = function () {
+
+    if (time = 0) {
+        window.alert("You're out of time!");
         
-//         endGameButtons();
+        endGameButtons();
 
-//         // finalScore();
+        // finalScore();
 
-//         // enterInitials();
+        // enterInitials();
 
-//         // saveScore();
+        // saveScore();
 
-//     }
+    }
 
-//     else {
+    else {
 
-//         window.alert("Your final score is: " + currentScore);
+        window.alert("Your final score is: " + currentScore);
 
-//         endGameButtons();
+        endGameButtons();
 
-//         // finalScore();
+        // finalScore();
 
-//         // enterInitials();
+        // enterInitials();
 
-//         // saveScore();
+        // saveScore();
 
-//     }
-// };
-
-
-
-// var scoreDisplay = function () {
-
-//     // create a container to display the score
-//     var scoreDisplayEl = document.createElement("div")
-//     scoreDisplayEl.className = "score-display";
-//     scoreDisplayEl.innerHTML = 'Your current score is: ' + currentScore;
-
-//     // attach the score display container to the body of the html
-//     document.body.appendChild(scoreDisplayEl);
-
-// }
-
-// // main function
-// var beginQuiz = function() {
-
-//     var start = window.prompt("Are you ready to begin?");
-
-//     start = start.toLowerCase();
-
-//     if (start === "yes"){
-
-//         //createTimer();
-//         //scoreDisplay();
+    }
+};
 
 
-//             if (timeLeft > 0) {
+
+var scoreDisplay = function () {
+
+    // create a container to display the score
+    var scoreDisplayEl = document.createElement("div")
+    scoreDisplayEl.className = "score-display";
+    scoreDisplayEl.innerHTML = 'Your current score is: ' + currentScore;
+
+    // attach the score display container to the body of the html
+    document.body.appendChild(scoreDisplayEl);
+
+}
+
+// main function
+var beginQuiz = function() {
+
+    var start = window.prompt("Are you ready to begin?");
+
+    start = start.toLowerCase();
+
+    if (start === "yes"){
+
+        //createTimer();
+        //scoreDisplay();
+
+
+            if (timeLeft > 0) {
         
-//                 questionOne();
+                questionOne();
         
-//             }
+            }
 
-//             else if (timeLeft > 0 && i === 1) {
+            else if (timeLeft > 0 && i === 1) {
         
-//                 questionTwo();
+                questionTwo();
         
-//             }
+            }
         
-//             else if (timeLeft > 0 && i === 2) {
+            else if (timeLeft > 0 && i === 2) {
 
-//                 questionThree();
+                questionThree();
         
-//             }
+            }
         
-//             else if (timeLeft > 0 && i === 3) {
-//                 debugger;
+            else if (timeLeft > 0 && i === 3) {
+                debugger;
 
-//                 questionFour();
+                questionFour();
         
-//             }
+            }
         
-//             else if (timeLeft > 0 && i === 4) {
-//                 debugger;
+            else if (timeLeft > 0 && i === 4) {
+                debugger;
 
-//                 questionFive();
+                questionFive();
         
-//             }
+            }
         
-//             else {
-//                 endQuiz();
-//             }
-//     }
+            else {
+                endQuiz();
+            }
+    }
 
-//     else {
+    else {
 
-//         beginQuiz();
+        beginQuiz();
 
-//     }
+    }
 
-// };
+};
 
-// beginQuiz();
+beginQuiz();
 
 
 
