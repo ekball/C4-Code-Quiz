@@ -21,50 +21,50 @@ var questionAndAnswers = [
     {
         question: "Bootstrap was built using _______.",
         choices: {
-            a: "Javascript",
-            b: "JQuery",
-            c: "CSS", 
-            d: "HTML"
+            1: "Javascript",
+            2: "JQuery",
+            3: "CSS", 
+            4: "HTML"
         }
         // solution: "CSS"
     },
     {
         question: "JQuery was built using _______.",
         choices: {
-            a: "CSS",
-            b: "HTML",
-            c: "BootStrap", 
-            d: "Javascript"
+            1: "CSS",
+            2: "HTML",
+            3: "BootStrap", 
+            4: "Javascript"
         }
         // solution: "Javascript"
     },
     {
         question: "HTML is used for creating a website's _______.",
         choices: {
-            a: "structure",
-            b: "style",
-            c: "Javascript", 
-            d: "Web-API"
+            1: "structure",
+            2: "style",
+            3: "Javascript", 
+            4: "Web-API"
         }
         // solution: "structure"
     },
     {
         question: "CSS is used for creating a website's _______.",
         choices: {
-            a: "structure",
-            b: "Jquery",
-            c: "HTML", 
-            d: "style"
+            1: "structure",
+            2: "Jquery",
+            3: "HTML", 
+            4: "style"
         }
         // solution: "style"
     },
     {
         question: "Javascript is used for creating a website's _______.",
         choices: {
-            a: "style",
-            b: "fine-tuned tasks",
-            c: "Bootstrap", 
-            d: "CSS"
+            1: "style",
+            2: "fine-tuned tasks",
+            3: "Bootstrap", 
+            4: "CSS"
         }
         // solution: "fine-tuned tasks"
     }
@@ -96,557 +96,577 @@ var createTimer = function () {
 
 };
 
+// function begins quiz and asks first question
+function questionOne() {
 
+    // clear content from codeQuizContent
+    codeQuizContent = innerHTML = "";
 
-// set empty arrays to store high scores and corresponding initials
-var highScore = [
-    {
-        name: "",
-        score: 0
-    }
-];
+    // print question to the quiz area
+    questionText = document.querySelector("h2");
+    // set class for styling
+    questionText.className = "question-text";
 
-var storeName = "";
-var storeScore = "";
-
-// initialize currentScore value to 0
-var currentScore = 0;
-
-var timeLeft = 100;
-
-
-
-// link id's from html to javascript
-var qAndASection = document.querySelector(".q-and-a");
-
-// create an ordered list in which to store the buttons and use captial letters 
-var buttonList = document.createElement("ol");
-    buttonList.setAttribute("type", "A");
-
-// save the user's initials alongside the highscore
-var enterInitials = function () {
-
-    highScore.name = window.prompt("Enter your initials: ");
-
-};
-
-// creates buttons and fills in the text on each as the appropriate answer choices for the question
-// n = which index in the array 'questions and answers' that we are at for the current function
-var createButtons = function (n) {
-
-    // create list items to hold buttons
-    var buttonListItem1 = document.createElement("li");
-    var buttonListItem2 = document.createElement("li");
-    var buttonListItem3 = document.createElement("li");
-    var buttonListItem4 = document.createElement("li");
-    buttonListItem4.id = "item-4";
-
-
-    // create 4 buttons: A, B, C, and D, then attach the buttons to a button list items
+    // create buttons to hold answers
     var buttonA = document.createElement("button");
-    buttonA.type = "button";
-    buttonA.id = "button-a";
-    buttonA.textContent = questionAndAnswers[n].a;
-    buttonListItem1.append(buttonA);
-
     var buttonB = document.createElement("button");
-    buttonB.type = "button";
-    buttonB.id = "button-b";
-    buttonB.textContent = questionAndAnswers[n].b;
-    buttonListItem2.append(buttonB);
-
-
     var buttonC = document.createElement("button");
-    buttonC.type = "button";
-    buttonC.id = "button-c";
-    buttonC.textContent = questionAndAnswers[n].c;
-    buttonListItem3.append(buttonC);
-
-
     var buttonD = document.createElement("button");
-    buttonD.type = "button";
-    buttonD.id = "button-d";
-    buttonD.textContent = questionAndAnswers[n].d;
-    buttonListItem4.append(buttonD);
+
+        // class declaration for styling buttons
+        buttonA.className = "answer";
+        buttonB.className = "answer";
+        buttonC.className = "answer";
+        buttonD.className = "answer";
+
+        // id declaration for styling buttons
+        buttonA.id = "answer-to-question";
+        buttonB.id = "answer-to-question";
+        buttonC.id = "answer-to-question";
+        buttonD.id = "answer-to-question";
+
+    // print the content of questions and answers
+    questionText.textContent = questionAndAnswers[0].question;
+    buttonA.textContent = questionAndAnswers[0].choices[1];
+    buttonB.textContent = questionAndAnswers[0].choices[2];
+    buttonC.textContent = questionAndAnswers[0].choices[3];
+    buttonD.textContent = questionAndAnswers[0].choices[4];
+
+    // set a data- value to determine correct answer
+    buttonA.setAttribute("data-isValid", "incorrect");
+    buttonB.setAttribute("data-isValid", "incorrect");
+    buttonC.setAttribute("data-isValid", "correct");
+    buttonD.setAttribute("data-isValid", "incorrect");
+
+    // set onClick attr to allow functionality to buttons when clicked
+    buttonA.setAttribute("onclick", "questionOneValidation()");
+    buttonB.setAttribute("onclick", "questionOneValidation()");
+    buttonC.setAttribute("onclick", "questionOneValidation()");
+    buttonD.setAttribute("onclick", "questionOneValidation()");
+
+    // append the elements for questions/answers to the page
+    codeQuizContent.appendChild(questionText);
+    codeQuizContent.appendChild(buttonContainer);
+    buttonContainer.appendChild(buttonA);
+    buttonContainer.appendChild(buttonB);
+    buttonContainer.appendChild(buttonC);
+    buttonContainer.appendChild(buttonD);
+
+    questionAndAnswers.shift();
+};
+
+// function asks second question
+function questionTwo() {
+
+    // clear content from codeQuizContent
+    codeQuizContent = innerHTML = "";
+
+    // print question to the quiz area
+    questionText = document.querySelector("h2");
+    // set class for styling
+    questionText.className = "question-text";
+
+    // create buttons to hold answers
+    var buttonA = document.createElement("button");
+    var buttonB = document.createElement("button");
+    var buttonC = document.createElement("button");
+    var buttonD = document.createElement("button");
+
+        // class declaration for styling buttons
+        buttonA.className = "answer";
+        buttonB.className = "answer";
+        buttonC.className = "answer";
+        buttonD.className = "answer";
+
+        // id declaration for styling buttons
+        buttonA.id = "answer-to-question";
+        buttonB.id = "answer-to-question";
+        buttonC.id = "answer-to-question";
+        buttonD.id = "answer-to-question";
+
+    // print the content of questions and answers
+    questionText.textContent = questionAndAnswers[1].question;
+    buttonA.textContent = questionAndAnswers[1].choices[1];
+    buttonB.textContent = questionAndAnswers[1].choices[2];
+    buttonC.textContent = questionAndAnswers[1].choices[3];
+    buttonD.textContent = questionAndAnswers[1].choices[4];
+
+    // set a data- value to determine correct answer
+    buttonA.setAttribute("data-isValid", "incorrect");
+    buttonB.setAttribute("data-isValid", "incorrect");
+    buttonC.setAttribute("data-isValid", "incorrect");
+    buttonD.setAttribute("data-isValid", "correct");
+
+    // set onClick attr to allow functionality to buttons when clicked
+    buttonA.setAttribute("onclick", "questionTwoValidation()");
+    buttonB.setAttribute("onclick", "questionTwoValidation()");
+    buttonC.setAttribute("onclick", "questionTwoValidation()");
+    buttonD.setAttribute("onclick", "questionTwoValidation()");
+
+    // append the elements for questions/answers to the page
+    codeQuizContent.appendChild(questionText);
+    codeQuizContent.appendChild(buttonContainer);
+    buttonContainer.appendChild(buttonA);
+    buttonContainer.appendChild(buttonB);
+    buttonContainer.appendChild(buttonC);
+    buttonContainer.appendChild(buttonD);
+
+    questionAndAnswers.shift();
+};
+
+
+// function asks third question
+function questionThree() {
+
+    // clear content from codeQuizContent
+    codeQuizContent = innerHTML = "";
+
+    // print question to the quiz area
+    questionText = document.querySelector("h2");
+    // set class for styling
+    questionText.className = "question-text";
+
+    // create buttons to hold answers
+    var buttonA = document.createElement("button");
+    var buttonB = document.createElement("button");
+    var buttonC = document.createElement("button");
+    var buttonD = document.createElement("button");
+
+        // class declaration for styling buttons
+        buttonA.className = "answer";
+        buttonB.className = "answer";
+        buttonC.className = "answer";
+        buttonD.className = "answer";
+
+        // id declaration for styling buttons
+        buttonA.id = "answer-to-question";
+        buttonB.id = "answer-to-question";
+        buttonC.id = "answer-to-question";
+        buttonD.id = "answer-to-question";
+
+    // print the content of questions and answers
+    questionText.textContent = questionAndAnswers[2].question;
+    buttonA.textContent = questionAndAnswers[2].choices[1];
+    buttonB.textContent = questionAndAnswers[2].choices[2];
+    buttonC.textContent = questionAndAnswers[2].choices[3];
+    buttonD.textContent = questionAndAnswers[2].choices[4];
+
+    // set a data- value to determine correct answer
+    buttonA.setAttribute("data-isValid", "correct");
+    buttonB.setAttribute("data-isValid", "incorrect");
+    buttonC.setAttribute("data-isValid", "incorrect");
+    buttonD.setAttribute("data-isValid", "incorrect");
+
+    // set onClick attr to allow functionality to buttons when clicked
+    buttonA.setAttribute("onclick", "questionThreeValidation()");
+    buttonB.setAttribute("onclick", "questionThreeValidation()");
+    buttonC.setAttribute("onclick", "questionThreeValidation()");
+    buttonD.setAttribute("onclick", "questionThreeValidation()");
+
+    // append the elements for questions/answers to the page
+    codeQuizContent.appendChild(questionText);
+    codeQuizContent.appendChild(buttonContainer);
+    buttonContainer.appendChild(buttonA);
+    buttonContainer.appendChild(buttonB);
+    buttonContainer.appendChild(buttonC);
+    buttonContainer.appendChild(buttonD);
+
+    questionAndAnswers.shift();
+};
+
+
+// function asks fourth question
+function questionFour() {
+
+    // clear content from codeQuizContent
+    codeQuizContent = innerHTML = "";
+
+    // print question to the quiz area
+    questionText = document.querySelector("h2");
+    // set class for styling
+    questionText.className = "question-text";
+
+    // create buttons to hold answers
+    var buttonA = document.createElement("button");
+    var buttonB = document.createElement("button");
+    var buttonC = document.createElement("button");
+    var buttonD = document.createElement("button");
+
+        // class declaration for styling buttons
+        buttonA.className = "answer";
+        buttonB.className = "answer";
+        buttonC.className = "answer";
+        buttonD.className = "answer";
+
+        // id declaration for styling buttons
+        buttonA.id = "answer-to-question";
+        buttonB.id = "answer-to-question";
+        buttonC.id = "answer-to-question";
+        buttonD.id = "answer-to-question";
+
+    // print the content of questions and answers
+    questionText.textContent = questionAndAnswers[3].question;
+    buttonA.textContent = questionAndAnswers[3].choices[1];
+    buttonB.textContent = questionAndAnswers[3].choices[2];
+    buttonC.textContent = questionAndAnswers[3].choices[3];
+    buttonD.textContent = questionAndAnswers[3].choices[4];
+
+    // set a data- value to determine correct answer
+    buttonA.setAttribute("data-isValid", "incorrect");
+    buttonB.setAttribute("data-isValid", "incorrect");
+    buttonC.setAttribute("data-isValid", "incorrect");
+    buttonD.setAttribute("data-isValid", "correct");
+
+    // set onClick attr to allow functionality to buttons when clicked
+    buttonA.setAttribute("onclick", "questionFourValidation()");
+    buttonB.setAttribute("onclick", "questionFourValidation()");
+    buttonC.setAttribute("onclick", "questionFourValidation()");
+    buttonD.setAttribute("onclick", "questionFourValidation()");
+
+    // append the elements for questions/answers to the page
+    codeQuizContent.appendChild(questionText);
+    codeQuizContent.appendChild(buttonContainer);
+    buttonContainer.appendChild(buttonA);
+    buttonContainer.appendChild(buttonB);
+    buttonContainer.appendChild(buttonC);
+    buttonContainer.appendChild(buttonD);
+
+    questionAndAnswers.shift();
+};
+
+
+// function asks fifth question
+function questionFive() {
+
+    // clear content from codeQuizContent
+    codeQuizContent = innerHTML = "";
+
+    // print question to the quiz area
+    questionText = document.querySelector("h2");
+    // set class for styling
+    questionText.className = "question-text";
+
+    // create buttons to hold answers
+    var buttonA = document.createElement("button");
+    var buttonB = document.createElement("button");
+    var buttonC = document.createElement("button");
+    var buttonD = document.createElement("button");
+
+        // class declaration for styling buttons
+        buttonA.className = "answer";
+        buttonB.className = "answer";
+        buttonC.className = "answer";
+        buttonD.className = "answer";
+
+        // id declaration for styling buttons
+        buttonA.id = "answer-to-question";
+        buttonB.id = "answer-to-question";
+        buttonC.id = "answer-to-question";
+        buttonD.id = "answer-to-question";
+
+    // print the content of questions and answers
+    questionText.textContent = questionAndAnswers[4].question;
+    buttonA.textContent = questionAndAnswers[4].choices[1];
+    buttonB.textContent = questionAndAnswers[4].choices[2];
+    buttonC.textContent = questionAndAnswers[4].choices[3];
+    buttonD.textContent = questionAndAnswers[4].choices[4];
+
+    // set a data- value to determine correct answer
+    buttonA.setAttribute("data-isValid", "incorrect");
+    buttonB.setAttribute("data-isValid", "correct");
+    buttonC.setAttribute("data-isValid", "incorrect");
+    buttonD.setAttribute("data-isValid", "incorrect");
+
+    // set onClick attr to allow functionality to buttons when clicked
+    buttonA.setAttribute("onclick", "questionFiveValidation()");
+    buttonB.setAttribute("onclick", "questionFiveValidation()");
+    buttonC.setAttribute("onclick", "questionFiveValidation()");
+    buttonD.setAttribute("onclick", "questionFiveValidation()");
+
+    // append the elements for questions/answers to the page
+    codeQuizContent.appendChild(questionText);
+    codeQuizContent.appendChild(buttonContainer);
+    buttonContainer.appendChild(buttonA);
+    buttonContainer.appendChild(buttonB);
+    buttonContainer.appendChild(buttonC);
+    buttonContainer.appendChild(buttonD);
+
+    questionAndAnswers.shift();
+};
+
+// // set empty arrays to store high scores and corresponding initials
+// var highScore = [
+//     {
+//         name: "",
+//         score: 0
+//     }
+// ];
+// // initialize currentScore value to 0
+// var currentScore = 0;
+
+// // link id's from html to javascript
+// var qAndASection = document.querySelector(".q-and-a");
+
+// // save the user's initials alongside the highscore
+// var enterInitials = function () {
+
+//     highScore.name = window.prompt("Enter your initials: ");
+
+// };
+
+// // copies the current score at the end of the quiz to the array 'highScore'
+// var finalScore = function () {
+
+//     highScore.score = currentScore;
+
+// };
+
+// // save the score and initials to local storage
+// var saveScore = function () {
+
+//     storeName = localStorage.setItem('highScore', JSON.stringify(highScore.name) + ", " + JSON.stringify(highScore.score));
+
+//     //var storeScore = localStorage.setItem('highScore', JSON.stringify(highScore.score));
+//     console.log("score saved");
+
+// };
+
+// var saveButtonHandler = function (event) {
+
+//     // get target element from event
+//     var targetEl = event.target;
+
+//     // if user clicks on save button
+//     if (targetEl.textContent === "Save") {
+
+//         finalScore();
+//         enterInitials();
+//         saveScore();
+
+//     } 
+
+// };
+
+// // load score from local storage
+// var loadScore = function () {
+
+//     var loadContainer = document.createElement("ol");
+//     loadContainer.className = "load-list";
+
+//     var loadListItem1 = document.createElement("li");
+//     var test = localStorage.getItem(JSON.parse(JSON.stringify(storeName)));
+//     loadListItem1.textContent = test;
+
+//     var loadListItem2 = document.createElement("li");
+//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[1]);
+
+//     var loadListItem3 = document.createElement("li");
+//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[2]);
+
+//     var loadListItem4 = document.createElement("li");
+//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[3]);
+
+//     var loadListItem5 = document.createElement("li");
+//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[4]);
+
+//     loadContainer.appendChild(loadListItem1);
+//     loadContainer.appendChild(loadListItem2);
+//     loadContainer.appendChild(loadListItem3);
+//     loadContainer.appendChild(loadListItem4);
+//     loadContainer.appendChild(loadListItem5);
+
+//     qAndASection.appendChild(loadContainer);
+
+//     console.log("score loaded");
+
+// };
+
+// var loadButtonHandler = function (event) {
+
+//     // get target element from event
+//     var targetEl = event.target;
+
+//     // if user clicks on save button
+//     if (targetEl.textContent === "Load") {
+
+//         loadScore();
+
+//     } 
+
+// };
+
+// // clear local memory
+// var clearScores = function () {
+
+//     localStorage.clear();
+
+//     window.alert("All Scores Have Been Erased");
+
+// };
+
+// var clearButtonHandler = function (event) {
+
+//     // get target element from event
+//     var targetEl = event.target;
+
+//     // if user clicks on save button
+//     if (targetEl.textContent === "Clear") {
+
+//         clearScores();
+
+//     } 
+
+// };
+
+// var restartButtonHandler = function (event) {
+
+//     // get target element from event
+//     var targetEl = event.target;
+
+//     // if user clicks on save button
+//     if (targetEl.textContent === "Restart") {
+
+//         beginQuiz();
+
+//     } 
+
+// };
+
+// var endGameButtons = function () {
+
+//     // replace question header with text for end game status
+//     var endStatus = document.querySelector("#question-header");
+//     endStatus.className = "ending-header";
+//     endStatus.textContent = 'Congratulations on finishing! Would you like to save your score, load a score, or restart the quiz?';
+    
+
+//     // change the content of 4 buttons and apply new event listeners and text content
+//     var saveButton = document.querySelector("#button-a")
+//     saveButton.textContent = 'Save';
+
+//     buttonList.addEventListener("click", saveButtonHandler);
+
+
+//     var loadButton = document.querySelector("#button-b")
+//     loadButton.textContent = 'Load';
+
+//     loadButton.addEventListener("click", loadButtonHandler);
 
     
-    // add buttons to the ordered list
-    buttonList.appendChild(buttonListItem1);
-    buttonList.appendChild(buttonListItem2);
-    buttonList.appendChild(buttonListItem3);
-    buttonList.appendChild(buttonListItem4);
+//     var clearButton = document.querySelector("#button-c")
+//     clearButton.textContent = 'Clear';
 
-    // add ordered list to q-and-a section
-    qAndASection.appendChild(buttonList);
-};
-
-var changeButtons = function (n) {
-
-    // change the content of the 4 buttons
-    var buttonA = document.querySelector("#button-a")
-    buttonA.textContent = questionAndAnswers[n].a;
-
-    var buttonB = document.querySelector("#button-b")
-    buttonB.textContent = questionAndAnswers[n].b;
-    
-
-    var buttonC = document.querySelector("#button-c")
-    buttonC.textContent = questionAndAnswers[n].c;
-    
-    
-    var buttonD = document.querySelector("#button-d")
-    buttonD.textContent = questionAndAnswers[n].d;
-    
-}
-
-// copies the current score at the end of the quiz to the array 'highScore'
-var finalScore = function () {
-
-    highScore.score = currentScore;
-
-};
-
-// save the score and initials to local storage
-var saveScore = function () {
-
-    storeName = localStorage.setItem('highScore', JSON.stringify(highScore.name) + ", " + JSON.stringify(highScore.score));
-
-    //var storeScore = localStorage.setItem('highScore', JSON.stringify(highScore.score));
-    console.log("score saved");
-
-};
-
-var saveButtonHandler = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-    // if user clicks on save button
-    if (targetEl.textContent === "Save") {
-
-        finalScore();
-        enterInitials();
-        saveScore();
-
-    } 
-
-};
-
-// load score from local storage
-var loadScore = function () {
-
-    var loadContainer = document.createElement("ol");
-    loadContainer.className = "load-list";
-
-    var loadListItem1 = document.createElement("li");
-    var test = localStorage.getItem(JSON.parse(JSON.stringify(storeName)));
-    loadListItem1.textContent = test;
-
-    var loadListItem2 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[1]);
-
-    var loadListItem3 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[2]);
-
-    var loadListItem4 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[3]);
-
-    var loadListItem5 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[4]);
-
-    loadContainer.appendChild(loadListItem1);
-    loadContainer.appendChild(loadListItem2);
-    loadContainer.appendChild(loadListItem3);
-    loadContainer.appendChild(loadListItem4);
-    loadContainer.appendChild(loadListItem5);
-
-    qAndASection.appendChild(loadContainer);
-
-    console.log("score loaded");
-
-};
-
-var loadButtonHandler = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-    // if user clicks on save button
-    if (targetEl.textContent === "Load") {
-
-        loadScore();
-
-    } 
-
-};
-
-// clear local memory
-var clearScores = function () {
-
-    localStorage.clear();
-
-    window.alert("All Scores Have Been Erased");
-
-};
-
-var clearButtonHandler = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-    // if user clicks on save button
-    if (targetEl.textContent === "Clear") {
-
-        clearScores();
-
-    } 
-
-};
-
-var restartButtonHandler = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-    // if user clicks on save button
-    if (targetEl.textContent === "Restart") {
-
-        beginQuiz();
-
-    } 
-
-};
-
-var endGameButtons = function () {
-
-    // replace question header with text for end game status
-    var endStatus = document.querySelector("#question-header");
-    endStatus.className = "ending-header";
-    endStatus.textContent = 'Congratulations on finishing! Would you like to save your score, load a score, or restart the quiz?';
-    
-
-    // change the content of 4 buttons and apply new event listeners and text content
-    var saveButton = document.querySelector("#button-a")
-    saveButton.textContent = 'Save';
-
-    buttonList.addEventListener("click", saveButtonHandler);
-
-
-    var loadButton = document.querySelector("#button-b")
-    loadButton.textContent = 'Load';
-
-    loadButton.addEventListener("click", loadButtonHandler);
+//     buttonList.addEventListener("click", clearButtonHandler);
 
     
-    var clearButton = document.querySelector("#button-c")
-    clearButton.textContent = 'Clear';
+//     var extraItem = document.querySelector("#item-4")
+//     extraItem.style.display = "none";
 
-    buttonList.addEventListener("click", clearButtonHandler);
+// };
 
-    
-    var extraItem = document.querySelector("#item-4")
-    extraItem.style.display = "none";
+// var endQuiz = function () {
 
-};
-
-var buttonHandlerQ1 = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-    // if question is answered correctly, score increases
-    if (targetEl.textContent === "CSS") {
-        console.log("Correctly answered question 1", targetEl);
-        currentScore = currentScore + 10;
-        console.log(currentScore);
-        questionTwo(); 
-    } 
-
-    // if question is answered incorrectly, the amount of time left decreases
-    else {
-      console.log("Incorrectly answered question 1", targetEl);
-      timeLeft -=10;
-      questionTwo();
-    }
-};
-
-var buttonHandlerQ2 = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-
-    // if question is answered correctly, score increases
-    if (targetEl.textContent === "Javascript") {
-     console.log("Correctly answered question 2", targetEl);
-     currentScore = currentScore + 10;
-     console.log(currentScore);
-
-     questionThree();
-    } 
-
-    // if question is answered incorrectly, the amount of time left decreases
-    else {
-      console.log("Incorrectly answered question 2", targetEl);
-      timeLeft -=10;
-      questionThree();
-    }
-};
-
-var buttonHandlerQ3 = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-
-    // if question is answered correctly, score increases
-    if (targetEl.textContent === "structure") {
-     console.log("Correctly answered question 3", targetEl);
-     currentScore = currentScore + 10;
-     console.log(currentScore);
-
-     questionFour();
-    } 
-
-    // if question is answered incorrectly, the amount of time left decreases
-    else {
-      console.log("Incorrectly answered question 3", targetEl);
-      timeLeft -=10;
-      questionFour();
-    }
-};
-
-var buttonHandlerQ4 = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-
-    // if question is answered correctly, score increases
-    if (targetEl.textContent === "style") {
-     console.log("Correctly answered question 4", targetEl);
-     currentScore = currentScore + 10;
-     console.log(currentScore);
-
-     questionFive();
-    } 
-
-    // if question is answered incorrectly, the amount of time left decreases
-    else {
-      console.log("Incorrectly answered question 4", targetEl);
-      timeLeft -=10;
-      questionFive();
-    }
-};
-
-var buttonHandlerQ5 = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-
-    // if question is answered correctly, score increases
-    if (targetEl.textContent === "fine-tuned tasks") {
-        console.log("Correctly answered question 5", targetEl);
-        currentScore = currentScore + 10;
-        console.log(currentScore);
-        endQuiz();
-    } 
-
-    // if question is answered incorrectly, the amount of time left decreases
-    else {
-      console.log("Incorrectly answered question 5", targetEl);
-      timeLeft -=10;
-      endQuiz();
-    }
-};
-
-var questionOne = function () {
-    
-    // create a h2 header that holds the first question
-    var question1 = document.createElement("h2");
-    question1.id = "question-header"
-    question1.textContent = questionAndAnswers[0].question;
-
-    // attach the question in the h2 to the q-and-a section
-    qAndASection.appendChild(question1);
-
-    // create buttons that hold answer choices for the first question
-    createButtons(0);
-
-    buttonList.addEventListener("click", buttonHandlerQ1);
-
-};
-
-var questionTwo = function () {
-
-    // create a h2 header that holds the second question
-    var question2 = document.querySelector("#question-header");
-    question2.textContent = questionAndAnswers[1].question;
-
-    // attach the question in the h2 to the q-and-a section
-    // qAndASection.appendChild(question2);
-
-    // change content buttons that hold answer choices for the second question
-    changeButtons(1);
-
-    buttonList.addEventListener("click", buttonHandlerQ2);
-
-    
-};
-
-var questionThree = function () {
-
-    // create a h2 header that holds the third question
-    var question3 = document.querySelector("#question-header");
-    question3.textContent = questionAndAnswers[2].question;
-
-    // attach the question in the h2 to the q-and-a section
-    // qAndASection.appendChild(question3);
-
-    // create buttons that hold answer choices for the third question
-    changeButtons(2);
-
-    buttonList.addEventListener("click", buttonHandlerQ3);
-
-    
-};
-
-var questionFour = function () {
-
-    // create a h2 header that holds the fourth question
-    var question4 = document.querySelector("#question-header");
-    question4.textContent = questionAndAnswers[3].question;
-
-    // attach the question in the h2 to the q-and-a section
-    // qAndASection.appendChild(question4);
-
-    // create buttons that hold answer choices for the fourth question
-    changeButtons(3);
-    
-    buttonList.addEventListener("click", buttonHandlerQ4);
-
-};
-
-var questionFive = function () {
-
-    // create a h2 header that holds the fifth question
-    var question5 = document.querySelector("#question-header");
-    question5.textContent = questionAndAnswers[4].question;
-
-    // attach the question in the h2 to the q-and-a section
-    // qAndASection.appendChild(question5);
-
-    // create buttons that hold answer choices for the fifth question
-    changeButtons(4);
-
-    buttonList.addEventListener("click", buttonHandlerQ5);
-
-};
-
-var endQuiz = function () {
-
-    if (time = 0) {
-        window.alert("You're out of time!");
+//     if (time = 0) {
+//         window.alert("You're out of time!");
         
-        endGameButtons();
+//         endGameButtons();
 
-        // finalScore();
+//         // finalScore();
 
-        // enterInitials();
+//         // enterInitials();
 
-        // saveScore();
+//         // saveScore();
 
-    }
+//     }
 
-    else {
+//     else {
 
-        window.alert("Your final score is: " + currentScore);
+//         window.alert("Your final score is: " + currentScore);
 
-        endGameButtons();
+//         endGameButtons();
 
-        // finalScore();
+//         // finalScore();
 
-        // enterInitials();
+//         // enterInitials();
 
-        // saveScore();
+//         // saveScore();
 
-    }
-};
-
-
-
-var scoreDisplay = function () {
-
-    // create a container to display the score
-    var scoreDisplayEl = document.createElement("div")
-    scoreDisplayEl.className = "score-display";
-    scoreDisplayEl.innerHTML = 'Your current score is: ' + currentScore;
-
-    // attach the score display container to the body of the html
-    document.body.appendChild(scoreDisplayEl);
-
-}
-
-// main function
-var beginQuiz = function() {
-
-    var start = window.prompt("Are you ready to begin?");
-
-    start = start.toLowerCase();
-
-    if (start === "yes"){
-
-        //createTimer();
-        //scoreDisplay();
+//     }
+// };
 
 
-            if (timeLeft > 0) {
+
+// var scoreDisplay = function () {
+
+//     // create a container to display the score
+//     var scoreDisplayEl = document.createElement("div")
+//     scoreDisplayEl.className = "score-display";
+//     scoreDisplayEl.innerHTML = 'Your current score is: ' + currentScore;
+
+//     // attach the score display container to the body of the html
+//     document.body.appendChild(scoreDisplayEl);
+
+// }
+
+// // main function
+// var beginQuiz = function() {
+
+//     var start = window.prompt("Are you ready to begin?");
+
+//     start = start.toLowerCase();
+
+//     if (start === "yes"){
+
+//         //createTimer();
+//         //scoreDisplay();
+
+
+//             if (timeLeft > 0) {
         
-                questionOne();
+//                 questionOne();
         
-            }
+//             }
 
-            else if (timeLeft > 0 && i === 1) {
+//             else if (timeLeft > 0 && i === 1) {
         
-                questionTwo();
+//                 questionTwo();
         
-            }
+//             }
         
-            else if (timeLeft > 0 && i === 2) {
+//             else if (timeLeft > 0 && i === 2) {
 
-                questionThree();
+//                 questionThree();
         
-            }
+//             }
         
-            else if (timeLeft > 0 && i === 3) {
-                debugger;
+//             else if (timeLeft > 0 && i === 3) {
+//                 debugger;
 
-                questionFour();
+//                 questionFour();
         
-            }
+//             }
         
-            else if (timeLeft > 0 && i === 4) {
-                debugger;
+//             else if (timeLeft > 0 && i === 4) {
+//                 debugger;
 
-                questionFive();
+//                 questionFive();
         
-            }
+//             }
         
-            else {
-                endQuiz();
-            }
-    }
+//             else {
+//                 endQuiz();
+//             }
+//     }
 
-    else {
+//     else {
 
-        beginQuiz();
+//         beginQuiz();
 
-    }
+//     }
 
-};
+// };
 
-beginQuiz();
+// beginQuiz();
 
 
 
