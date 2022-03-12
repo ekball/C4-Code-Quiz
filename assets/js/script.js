@@ -1,636 +1,663 @@
 // Next Task: recreate the highscore array into two separate arrays to store in localStorage, then pull from localStorage
 
-
-// set empty arrays to store high scores and corresponding initials
-var highScore = [
-    {
-        name: "",
-        score: 0
-    }
-];
-
-var storeName = "";
-var storeScore = "";
-
-// initialize currentScore value to 0
-var currentScore = 0;
+// selct the ids for the 3 main pieces of ui: scores, quiz, and start button
+var highScoreRecord = document.querySelector("#high-scores")
+var startButton = document.querySelector("#start-button");
+var codeQuizContent = document.querySelector("#quiz-content");
 
 // set initial time left at 60 sec until first question is given
 var timeLeft = 100;
+
+// create empty array to store the player names for highscores
+var players = [];
+
+
 
 // set up the items that hold questions and answers for easy access in functions
 var questionAndAnswers = [
 
     {
         question: "Bootstrap was built using _______.",
-        a: "Javascript",
-        b: "JQuery",
-        c: "CSS", 
-        d: "HTML",
-        solution: "CSS"
+        choices: {
+            a: "Javascript",
+            b: "JQuery",
+            c: "CSS", 
+            d: "HTML"
+        }
+        // solution: "CSS"
     },
     {
         question: "JQuery was built using _______.",
-        a: "CSS",
-        b: "HTML",
-        c: "BootStrap", 
-        d: "Javascript",
-        solution: "Javascript"
+        choices: {
+            a: "CSS",
+            b: "HTML",
+            c: "BootStrap", 
+            d: "Javascript"
+        }
+        // solution: "Javascript"
     },
     {
         question: "HTML is used for creating a website's _______.",
-        a: "structure",
-        b: "style",
-        c: "Javascript", 
-        d: "Web-API",
-        solution: "structure"
+        choices: {
+            a: "structure",
+            b: "style",
+            c: "Javascript", 
+            d: "Web-API"
+        }
+        // solution: "structure"
     },
     {
         question: "CSS is used for creating a website's _______.",
-        a: "structure",
-        b: "Jquery",
-        c: "HTML", 
-        d: "style",
-        solution: "style"
+        choices: {
+            a: "structure",
+            b: "Jquery",
+            c: "HTML", 
+            d: "style"
+        }
+        // solution: "style"
     },
     {
         question: "Javascript is used for creating a website's _______.",
-        a: "style",
-        b: "fine-tuned tasks",
-        c: "Bootstrap", 
-        d: "CSS",
-        solution: "fine-tuned tasks"
+        choices: {
+            a: "style",
+            b: "fine-tuned tasks",
+            c: "Bootstrap", 
+            d: "CSS"
+        }
+        // solution: "fine-tuned tasks"
     }
-
 ];
 
-// link id's from html to javascript
-var qAndASection = document.querySelector(".q-and-a");
-
-// create an ordered list in which to store the buttons and use captial letters 
-var buttonList = document.createElement("ol");
-    buttonList.setAttribute("type", "A");
-
-// save the user's initials alongside the highscore
-var enterInitials = function () {
-
-    highScore.name = window.prompt("Enter your initials: ");
-
-};
-
-// creates buttons and fills in the text on each as the appropriate answer choices for the question
-// n = which index in the array 'questions and answers' that we are at for the current function
-var createButtons = function (n) {
-
-    // create list items to hold buttons
-    var buttonListItem1 = document.createElement("li");
-    var buttonListItem2 = document.createElement("li");
-    var buttonListItem3 = document.createElement("li");
-    var buttonListItem4 = document.createElement("li");
-    buttonListItem4.id = "item-4";
 
 
-    // create 4 buttons: A, B, C, and D, then attach the buttons to a button list items
-    var buttonA = document.createElement("button");
-    buttonA.type = "button";
-    buttonA.id = "button-a";
-    buttonA.textContent = questionAndAnswers[n].a;
-    buttonListItem1.append(buttonA);
-
-    var buttonB = document.createElement("button");
-    buttonB.type = "button";
-    buttonB.id = "button-b";
-    buttonB.textContent = questionAndAnswers[n].b;
-    buttonListItem2.append(buttonB);
 
 
-    var buttonC = document.createElement("button");
-    buttonC.type = "button";
-    buttonC.id = "button-c";
-    buttonC.textContent = questionAndAnswers[n].c;
-    buttonListItem3.append(buttonC);
+
+// // set empty arrays to store high scores and corresponding initials
+// var highScore = [
+//     {
+//         name: "",
+//         score: 0
+//     }
+// ];
+
+// var storeName = "";
+// var storeScore = "";
+
+// // initialize currentScore value to 0
+// var currentScore = 0;
+
+// var timeLeft = 100;
 
 
-    var buttonD = document.createElement("button");
-    buttonD.type = "button";
-    buttonD.id = "button-d";
-    buttonD.textContent = questionAndAnswers[n].d;
-    buttonListItem4.append(buttonD);
+
+// // link id's from html to javascript
+// var qAndASection = document.querySelector(".q-and-a");
+
+// // create an ordered list in which to store the buttons and use captial letters 
+// var buttonList = document.createElement("ol");
+//     buttonList.setAttribute("type", "A");
+
+// // save the user's initials alongside the highscore
+// var enterInitials = function () {
+
+//     highScore.name = window.prompt("Enter your initials: ");
+
+// };
+
+// // creates buttons and fills in the text on each as the appropriate answer choices for the question
+// // n = which index in the array 'questions and answers' that we are at for the current function
+// var createButtons = function (n) {
+
+//     // create list items to hold buttons
+//     var buttonListItem1 = document.createElement("li");
+//     var buttonListItem2 = document.createElement("li");
+//     var buttonListItem3 = document.createElement("li");
+//     var buttonListItem4 = document.createElement("li");
+//     buttonListItem4.id = "item-4";
+
+
+//     // create 4 buttons: A, B, C, and D, then attach the buttons to a button list items
+//     var buttonA = document.createElement("button");
+//     buttonA.type = "button";
+//     buttonA.id = "button-a";
+//     buttonA.textContent = questionAndAnswers[n].a;
+//     buttonListItem1.append(buttonA);
+
+//     var buttonB = document.createElement("button");
+//     buttonB.type = "button";
+//     buttonB.id = "button-b";
+//     buttonB.textContent = questionAndAnswers[n].b;
+//     buttonListItem2.append(buttonB);
+
+
+//     var buttonC = document.createElement("button");
+//     buttonC.type = "button";
+//     buttonC.id = "button-c";
+//     buttonC.textContent = questionAndAnswers[n].c;
+//     buttonListItem3.append(buttonC);
+
+
+//     var buttonD = document.createElement("button");
+//     buttonD.type = "button";
+//     buttonD.id = "button-d";
+//     buttonD.textContent = questionAndAnswers[n].d;
+//     buttonListItem4.append(buttonD);
 
     
-    // add buttons to the ordered list
-    buttonList.appendChild(buttonListItem1);
-    buttonList.appendChild(buttonListItem2);
-    buttonList.appendChild(buttonListItem3);
-    buttonList.appendChild(buttonListItem4);
+//     // add buttons to the ordered list
+//     buttonList.appendChild(buttonListItem1);
+//     buttonList.appendChild(buttonListItem2);
+//     buttonList.appendChild(buttonListItem3);
+//     buttonList.appendChild(buttonListItem4);
 
-    // add ordered list to q-and-a section
-    qAndASection.appendChild(buttonList);
-};
+//     // add ordered list to q-and-a section
+//     qAndASection.appendChild(buttonList);
+// };
 
-var changeButtons = function (n) {
+// var changeButtons = function (n) {
 
-    // change the content of the 4 buttons
-    var buttonA = document.querySelector("#button-a")
-    buttonA.textContent = questionAndAnswers[n].a;
+//     // change the content of the 4 buttons
+//     var buttonA = document.querySelector("#button-a")
+//     buttonA.textContent = questionAndAnswers[n].a;
 
-    var buttonB = document.querySelector("#button-b")
-    buttonB.textContent = questionAndAnswers[n].b;
+//     var buttonB = document.querySelector("#button-b")
+//     buttonB.textContent = questionAndAnswers[n].b;
     
 
-    var buttonC = document.querySelector("#button-c")
-    buttonC.textContent = questionAndAnswers[n].c;
+//     var buttonC = document.querySelector("#button-c")
+//     buttonC.textContent = questionAndAnswers[n].c;
     
     
-    var buttonD = document.querySelector("#button-d")
-    buttonD.textContent = questionAndAnswers[n].d;
+//     var buttonD = document.querySelector("#button-d")
+//     buttonD.textContent = questionAndAnswers[n].d;
     
-}
+// }
 
-// copies the current score at the end of the quiz to the array 'highScore'
-var finalScore = function () {
+// // copies the current score at the end of the quiz to the array 'highScore'
+// var finalScore = function () {
 
-    highScore.score = currentScore;
+//     highScore.score = currentScore;
 
-};
+// };
 
-// save the score and initials to local storage
-var saveScore = function () {
+// // save the score and initials to local storage
+// var saveScore = function () {
 
-    storeName = localStorage.setItem('highScore', JSON.stringify(highScore.name) + ", " + JSON.stringify(highScore.score));
+//     storeName = localStorage.setItem('highScore', JSON.stringify(highScore.name) + ", " + JSON.stringify(highScore.score));
 
-    //var storeScore = localStorage.setItem('highScore', JSON.stringify(highScore.score));
-    console.log("score saved");
+//     //var storeScore = localStorage.setItem('highScore', JSON.stringify(highScore.score));
+//     console.log("score saved");
 
-};
+// };
 
-var saveButtonHandler = function (event) {
+// var saveButtonHandler = function (event) {
 
-    // get target element from event
-    var targetEl = event.target;
+//     // get target element from event
+//     var targetEl = event.target;
 
-    // if user clicks on save button
-    if (targetEl.textContent === "Save") {
+//     // if user clicks on save button
+//     if (targetEl.textContent === "Save") {
 
-        finalScore();
-        enterInitials();
-        saveScore();
+//         finalScore();
+//         enterInitials();
+//         saveScore();
 
-    } 
+//     } 
 
-};
+// };
 
-// load score from local storage
-var loadScore = function () {
+// // load score from local storage
+// var loadScore = function () {
 
-    var loadContainer = document.createElement("ol");
-    loadContainer.className = "load-list";
+//     var loadContainer = document.createElement("ol");
+//     loadContainer.className = "load-list";
 
-    var loadListItem1 = document.createElement("li");
-    var test = localStorage.getItem(JSON.parse(JSON.stringify(storeName)));
-    loadListItem1.textContent = test;
+//     var loadListItem1 = document.createElement("li");
+//     var test = localStorage.getItem(JSON.parse(JSON.stringify(storeName)));
+//     loadListItem1.textContent = test;
 
-    var loadListItem2 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[1]);
+//     var loadListItem2 = document.createElement("li");
+//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[1]);
 
-    var loadListItem3 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[2]);
+//     var loadListItem3 = document.createElement("li");
+//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[2]);
 
-    var loadListItem4 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[3]);
+//     var loadListItem4 = document.createElement("li");
+//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[3]);
 
-    var loadListItem5 = document.createElement("li");
-    loadListItem1.textContent = localStorage.getItem("highscore", highScore[4]);
+//     var loadListItem5 = document.createElement("li");
+//     loadListItem1.textContent = localStorage.getItem("highscore", highScore[4]);
 
-    loadContainer.appendChild(loadListItem1);
-    loadContainer.appendChild(loadListItem2);
-    loadContainer.appendChild(loadListItem3);
-    loadContainer.appendChild(loadListItem4);
-    loadContainer.appendChild(loadListItem5);
+//     loadContainer.appendChild(loadListItem1);
+//     loadContainer.appendChild(loadListItem2);
+//     loadContainer.appendChild(loadListItem3);
+//     loadContainer.appendChild(loadListItem4);
+//     loadContainer.appendChild(loadListItem5);
 
-    qAndASection.appendChild(loadContainer);
+//     qAndASection.appendChild(loadContainer);
 
-    console.log("score loaded");
+//     console.log("score loaded");
 
-};
+// };
 
-var loadButtonHandler = function (event) {
+// var loadButtonHandler = function (event) {
 
-    // get target element from event
-    var targetEl = event.target;
+//     // get target element from event
+//     var targetEl = event.target;
 
-    // if user clicks on save button
-    if (targetEl.textContent === "Load") {
+//     // if user clicks on save button
+//     if (targetEl.textContent === "Load") {
 
-        loadScore();
+//         loadScore();
 
-    } 
+//     } 
 
-};
+// };
 
-// clear local memory
-var clearScores = function () {
+// // clear local memory
+// var clearScores = function () {
 
-    localStorage.clear();
+//     localStorage.clear();
 
-    window.alert("All Scores Have Been Erased");
+//     window.alert("All Scores Have Been Erased");
 
-};
+// };
 
-var clearButtonHandler = function (event) {
+// var clearButtonHandler = function (event) {
 
-    // get target element from event
-    var targetEl = event.target;
+//     // get target element from event
+//     var targetEl = event.target;
 
-    // if user clicks on save button
-    if (targetEl.textContent === "Clear") {
+//     // if user clicks on save button
+//     if (targetEl.textContent === "Clear") {
 
-        clearScores();
+//         clearScores();
 
-    } 
+//     } 
 
-};
+// };
 
-var restartButtonHandler = function (event) {
+// var restartButtonHandler = function (event) {
 
-    // get target element from event
-    var targetEl = event.target;
+//     // get target element from event
+//     var targetEl = event.target;
 
-    // if user clicks on save button
-    if (targetEl.textContent === "Restart") {
+//     // if user clicks on save button
+//     if (targetEl.textContent === "Restart") {
 
-        beginQuiz();
+//         beginQuiz();
 
-    } 
+//     } 
 
-};
+// };
 
-var endGameButtons = function () {
+// var endGameButtons = function () {
 
-    // replace question header with text for end game status
-    var endStatus = document.querySelector("#question-header");
-    endStatus.className = "ending-header";
-    endStatus.textContent = 'Congratulations on finishing! Would you like to save your score, load a score, or restart the quiz?';
+//     // replace question header with text for end game status
+//     var endStatus = document.querySelector("#question-header");
+//     endStatus.className = "ending-header";
+//     endStatus.textContent = 'Congratulations on finishing! Would you like to save your score, load a score, or restart the quiz?';
     
 
-    // change the content of 4 buttons and apply new event listeners and text content
-    var saveButton = document.querySelector("#button-a")
-    saveButton.textContent = 'Save';
+//     // change the content of 4 buttons and apply new event listeners and text content
+//     var saveButton = document.querySelector("#button-a")
+//     saveButton.textContent = 'Save';
 
-    buttonList.addEventListener("click", saveButtonHandler);
+//     buttonList.addEventListener("click", saveButtonHandler);
 
 
-    var loadButton = document.querySelector("#button-b")
-    loadButton.textContent = 'Load';
+//     var loadButton = document.querySelector("#button-b")
+//     loadButton.textContent = 'Load';
 
-    loadButton.addEventListener("click", loadButtonHandler);
-
-    
-    var clearButton = document.querySelector("#button-c")
-    clearButton.textContent = 'Clear';
-
-    buttonList.addEventListener("click", clearButtonHandler);
+//     loadButton.addEventListener("click", loadButtonHandler);
 
     
-    var extraItem = document.querySelector("#item-4")
-    extraItem.style.display = "none";
+//     var clearButton = document.querySelector("#button-c")
+//     clearButton.textContent = 'Clear';
 
-};
-
-var buttonHandlerQ1 = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-    // if question is answered correctly, score increases
-    if (targetEl.textContent === "CSS") {
-        console.log("Correctly answered question 1", targetEl);
-        currentScore = currentScore + 10;
-        console.log(currentScore);
-        questionTwo(); 
-    } 
-
-    // if question is answered incorrectly, the amount of time left decreases
-    else {
-      console.log("Incorrectly answered question 1", targetEl);
-      timeLeft -=10;
-      questionTwo();
-    }
-};
-
-var buttonHandlerQ2 = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-
-    // if question is answered correctly, score increases
-    if (targetEl.textContent === "Javascript") {
-     console.log("Correctly answered question 2", targetEl);
-     currentScore = currentScore + 10;
-     console.log(currentScore);
-
-     questionThree();
-    } 
-
-    // if question is answered incorrectly, the amount of time left decreases
-    else {
-      console.log("Incorrectly answered question 2", targetEl);
-      timeLeft -=10;
-      questionThree();
-    }
-};
-
-var buttonHandlerQ3 = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-
-    // if question is answered correctly, score increases
-    if (targetEl.textContent === "structure") {
-     console.log("Correctly answered question 3", targetEl);
-     currentScore = currentScore + 10;
-     console.log(currentScore);
-
-     questionFour();
-    } 
-
-    // if question is answered incorrectly, the amount of time left decreases
-    else {
-      console.log("Incorrectly answered question 3", targetEl);
-      timeLeft -=10;
-      questionFour();
-    }
-};
-
-var buttonHandlerQ4 = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-
-    // if question is answered correctly, score increases
-    if (targetEl.textContent === "style") {
-     console.log("Correctly answered question 4", targetEl);
-     currentScore = currentScore + 10;
-     console.log(currentScore);
-
-     questionFive();
-    } 
-
-    // if question is answered incorrectly, the amount of time left decreases
-    else {
-      console.log("Incorrectly answered question 4", targetEl);
-      timeLeft -=10;
-      questionFive();
-    }
-};
-
-var buttonHandlerQ5 = function (event) {
-
-    // get target element from event
-    var targetEl = event.target;
-
-
-    // if question is answered correctly, score increases
-    if (targetEl.textContent === "fine-tuned tasks") {
-        console.log("Correctly answered question 5", targetEl);
-        currentScore = currentScore + 10;
-        console.log(currentScore);
-        endQuiz();
-    } 
-
-    // if question is answered incorrectly, the amount of time left decreases
-    else {
-      console.log("Incorrectly answered question 5", targetEl);
-      timeLeft -=10;
-      endQuiz();
-    }
-};
-
-var questionOne = function () {
-    
-    // create a h2 header that holds the first question
-    var question1 = document.createElement("h2");
-    question1.id = "question-header"
-    question1.textContent = questionAndAnswers[0].question;
-
-    // attach the question in the h2 to the q-and-a section
-    qAndASection.appendChild(question1);
-
-    // create buttons that hold answer choices for the first question
-    createButtons(0);
-
-    buttonList.addEventListener("click", buttonHandlerQ1);
-
-};
-
-var questionTwo = function () {
-
-    // create a h2 header that holds the second question
-    var question2 = document.querySelector("#question-header");
-    question2.textContent = questionAndAnswers[1].question;
-
-    // attach the question in the h2 to the q-and-a section
-    // qAndASection.appendChild(question2);
-
-    // change content buttons that hold answer choices for the second question
-    changeButtons(1);
-
-    buttonList.addEventListener("click", buttonHandlerQ2);
+//     buttonList.addEventListener("click", clearButtonHandler);
 
     
-};
+//     var extraItem = document.querySelector("#item-4")
+//     extraItem.style.display = "none";
 
-var questionThree = function () {
+// };
 
-    // create a h2 header that holds the third question
-    var question3 = document.querySelector("#question-header");
-    question3.textContent = questionAndAnswers[2].question;
+// var buttonHandlerQ1 = function (event) {
 
-    // attach the question in the h2 to the q-and-a section
-    // qAndASection.appendChild(question3);
+//     // get target element from event
+//     var targetEl = event.target;
 
-    // create buttons that hold answer choices for the third question
-    changeButtons(2);
+//     // if question is answered correctly, score increases
+//     if (targetEl.textContent === "CSS") {
+//         console.log("Correctly answered question 1", targetEl);
+//         currentScore = currentScore + 10;
+//         console.log(currentScore);
+//         questionTwo(); 
+//     } 
 
-    buttonList.addEventListener("click", buttonHandlerQ3);
+//     // if question is answered incorrectly, the amount of time left decreases
+//     else {
+//       console.log("Incorrectly answered question 1", targetEl);
+//       timeLeft -=10;
+//       questionTwo();
+//     }
+// };
+
+// var buttonHandlerQ2 = function (event) {
+
+//     // get target element from event
+//     var targetEl = event.target;
+
+
+//     // if question is answered correctly, score increases
+//     if (targetEl.textContent === "Javascript") {
+//      console.log("Correctly answered question 2", targetEl);
+//      currentScore = currentScore + 10;
+//      console.log(currentScore);
+
+//      questionThree();
+//     } 
+
+//     // if question is answered incorrectly, the amount of time left decreases
+//     else {
+//       console.log("Incorrectly answered question 2", targetEl);
+//       timeLeft -=10;
+//       questionThree();
+//     }
+// };
+
+// var buttonHandlerQ3 = function (event) {
+
+//     // get target element from event
+//     var targetEl = event.target;
+
+
+//     // if question is answered correctly, score increases
+//     if (targetEl.textContent === "structure") {
+//      console.log("Correctly answered question 3", targetEl);
+//      currentScore = currentScore + 10;
+//      console.log(currentScore);
+
+//      questionFour();
+//     } 
+
+//     // if question is answered incorrectly, the amount of time left decreases
+//     else {
+//       console.log("Incorrectly answered question 3", targetEl);
+//       timeLeft -=10;
+//       questionFour();
+//     }
+// };
+
+// var buttonHandlerQ4 = function (event) {
+
+//     // get target element from event
+//     var targetEl = event.target;
+
+
+//     // if question is answered correctly, score increases
+//     if (targetEl.textContent === "style") {
+//      console.log("Correctly answered question 4", targetEl);
+//      currentScore = currentScore + 10;
+//      console.log(currentScore);
+
+//      questionFive();
+//     } 
+
+//     // if question is answered incorrectly, the amount of time left decreases
+//     else {
+//       console.log("Incorrectly answered question 4", targetEl);
+//       timeLeft -=10;
+//       questionFive();
+//     }
+// };
+
+// var buttonHandlerQ5 = function (event) {
+
+//     // get target element from event
+//     var targetEl = event.target;
+
+
+//     // if question is answered correctly, score increases
+//     if (targetEl.textContent === "fine-tuned tasks") {
+//         console.log("Correctly answered question 5", targetEl);
+//         currentScore = currentScore + 10;
+//         console.log(currentScore);
+//         endQuiz();
+//     } 
+
+//     // if question is answered incorrectly, the amount of time left decreases
+//     else {
+//       console.log("Incorrectly answered question 5", targetEl);
+//       timeLeft -=10;
+//       endQuiz();
+//     }
+// };
+
+// var questionOne = function () {
+    
+//     // create a h2 header that holds the first question
+//     var question1 = document.createElement("h2");
+//     question1.id = "question-header"
+//     question1.textContent = questionAndAnswers[0].question;
+
+//     // attach the question in the h2 to the q-and-a section
+//     qAndASection.appendChild(question1);
+
+//     // create buttons that hold answer choices for the first question
+//     createButtons(0);
+
+//     buttonList.addEventListener("click", buttonHandlerQ1);
+
+// };
+
+// var questionTwo = function () {
+
+//     // create a h2 header that holds the second question
+//     var question2 = document.querySelector("#question-header");
+//     question2.textContent = questionAndAnswers[1].question;
+
+//     // attach the question in the h2 to the q-and-a section
+//     // qAndASection.appendChild(question2);
+
+//     // change content buttons that hold answer choices for the second question
+//     changeButtons(1);
+
+//     buttonList.addEventListener("click", buttonHandlerQ2);
 
     
-};
+// };
 
-var questionFour = function () {
+// var questionThree = function () {
 
-    // create a h2 header that holds the fourth question
-    var question4 = document.querySelector("#question-header");
-    question4.textContent = questionAndAnswers[3].question;
+//     // create a h2 header that holds the third question
+//     var question3 = document.querySelector("#question-header");
+//     question3.textContent = questionAndAnswers[2].question;
 
-    // attach the question in the h2 to the q-and-a section
-    // qAndASection.appendChild(question4);
+//     // attach the question in the h2 to the q-and-a section
+//     // qAndASection.appendChild(question3);
 
-    // create buttons that hold answer choices for the fourth question
-    changeButtons(3);
+//     // create buttons that hold answer choices for the third question
+//     changeButtons(2);
+
+//     buttonList.addEventListener("click", buttonHandlerQ3);
+
     
-    buttonList.addEventListener("click", buttonHandlerQ4);
+// };
 
-};
+// var questionFour = function () {
 
-var questionFive = function () {
+//     // create a h2 header that holds the fourth question
+//     var question4 = document.querySelector("#question-header");
+//     question4.textContent = questionAndAnswers[3].question;
 
-    // create a h2 header that holds the fifth question
-    var question5 = document.querySelector("#question-header");
-    question5.textContent = questionAndAnswers[4].question;
+//     // attach the question in the h2 to the q-and-a section
+//     // qAndASection.appendChild(question4);
 
-    // attach the question in the h2 to the q-and-a section
-    // qAndASection.appendChild(question5);
+//     // create buttons that hold answer choices for the fourth question
+//     changeButtons(3);
+    
+//     buttonList.addEventListener("click", buttonHandlerQ4);
 
-    // create buttons that hold answer choices for the fifth question
-    changeButtons(4);
+// };
 
-    buttonList.addEventListener("click", buttonHandlerQ5);
+// var questionFive = function () {
 
-};
+//     // create a h2 header that holds the fifth question
+//     var question5 = document.querySelector("#question-header");
+//     question5.textContent = questionAndAnswers[4].question;
 
-var endQuiz = function () {
+//     // attach the question in the h2 to the q-and-a section
+//     // qAndASection.appendChild(question5);
 
-    if (time = 0) {
-        window.alert("You're out of time!");
+//     // create buttons that hold answer choices for the fifth question
+//     changeButtons(4);
+
+//     buttonList.addEventListener("click", buttonHandlerQ5);
+
+// };
+
+// var endQuiz = function () {
+
+//     if (time = 0) {
+//         window.alert("You're out of time!");
         
-        endGameButtons();
+//         endGameButtons();
 
-        // finalScore();
+//         // finalScore();
 
-        // enterInitials();
+//         // enterInitials();
 
-        // saveScore();
+//         // saveScore();
 
-    }
+//     }
 
-    else {
+//     else {
 
-        window.alert("Your final score is: " + currentScore);
+//         window.alert("Your final score is: " + currentScore);
 
-        endGameButtons();
+//         endGameButtons();
 
-        // finalScore();
+//         // finalScore();
 
-        // enterInitials();
+//         // enterInitials();
 
-        // saveScore();
+//         // saveScore();
 
-    }
-};
+//     }
+// };
 
-var createTimer = function () {
+// var createTimer = function () {
 
-    var timeLeft = 100;
+//     var timeLeft = 100;
 
-    // create a container to hold the timer
-    var timerEl = document.createElement("div")
-    timerEl.className = "timer";
+//     // create a container to hold the timer
+//     var timerEl = document.createElement("div")
+//     timerEl.className = "timer";
     
-    // attach the timer container to the body of the html
-    document.body.appendChild(timerEl);
+//     // attach the timer container to the body of the html
+//     document.body.appendChild(timerEl);
 
-    // set timer to decrease every second
-    var timeInterval = setInterval(function () {
+//     // set timer to decrease every second
+//     var timeInterval = setInterval(function () {
 
-    // if there is still time, display the countdown
-    if (timeLeft > 0 ) {
+//     // if there is still time, display the countdown
+//     if (timeLeft > 0 ) {
 
-      timerEl.textContent = 'Time Remaining: ' + timeLeft;
+//       timerEl.textContent = 'Time Remaining: ' + timeLeft;
 
-      timeLeft--;
+//       timeLeft--;
 
-    }
+//     }
 
-    // otherwise, clear the counter and end the quiz
-    else {
+//     // otherwise, clear the counter and end the quiz
+//     else {
   
-        timerEl.textContent = 'Time is up!!';
+//         timerEl.textContent = 'Time is up!!';
 
-        clearInterval(timeInterval);
+//         clearInterval(timeInterval);
         
-        endQuiz();
+//         endQuiz();
 
-    }
+//     }
 
-  }, 1000);
+//   }, 1000);
 
-};
+// };
 
-var scoreDisplay = function () {
+// var scoreDisplay = function () {
 
-    // create a container to display the score
-    var scoreDisplayEl = document.createElement("div")
-    scoreDisplayEl.className = "score-display";
-    scoreDisplayEl.innerHTML = 'Your current score is: ' + currentScore;
+//     // create a container to display the score
+//     var scoreDisplayEl = document.createElement("div")
+//     scoreDisplayEl.className = "score-display";
+//     scoreDisplayEl.innerHTML = 'Your current score is: ' + currentScore;
 
-    // attach the score display container to the body of the html
-    document.body.appendChild(scoreDisplayEl);
+//     // attach the score display container to the body of the html
+//     document.body.appendChild(scoreDisplayEl);
 
-}
+// }
 
-// main function
-var beginQuiz = function() {
+// // main function
+// var beginQuiz = function() {
 
-    var start = window.prompt("Are you ready to begin?");
+//     var start = window.prompt("Are you ready to begin?");
 
-    start = start.toLowerCase();
+//     start = start.toLowerCase();
 
-    if (start === "yes"){
+//     if (start === "yes"){
 
-        //createTimer();
-        //scoreDisplay();
+//         //createTimer();
+//         //scoreDisplay();
 
 
-            if (timeLeft > 0) {
+//             if (timeLeft > 0) {
         
-                questionOne();
+//                 questionOne();
         
-            }
+//             }
 
-            else if (timeLeft > 0 && i === 1) {
+//             else if (timeLeft > 0 && i === 1) {
         
-                questionTwo();
+//                 questionTwo();
         
-            }
+//             }
         
-            else if (timeLeft > 0 && i === 2) {
+//             else if (timeLeft > 0 && i === 2) {
 
-                questionThree();
+//                 questionThree();
         
-            }
+//             }
         
-            else if (timeLeft > 0 && i === 3) {
-                debugger;
+//             else if (timeLeft > 0 && i === 3) {
+//                 debugger;
 
-                questionFour();
+//                 questionFour();
         
-            }
+//             }
         
-            else if (timeLeft > 0 && i === 4) {
-                debugger;
+//             else if (timeLeft > 0 && i === 4) {
+//                 debugger;
 
-                questionFive();
+//                 questionFive();
         
-            }
+//             }
         
-            else {
-                endQuiz();
-            }
-    }
+//             else {
+//                 endQuiz();
+//             }
+//     }
 
-    else {
+//     else {
 
-        beginQuiz();
+//         beginQuiz();
 
-    }
+//     }
 
-};
+// };
 
-beginQuiz();
+// beginQuiz();
 
 
 
