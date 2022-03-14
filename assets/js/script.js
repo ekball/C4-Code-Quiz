@@ -1,8 +1,6 @@
-// Next Task: recreate the highscore array into two separate arrays to store in localStorage, then pull from localStorage
-
 // selct the ids for the 3 main pieces of ui: scores, quiz, and start button
 var highScoreRecord = document.querySelector("#high-scores")
-var startButton = document.querySelector("#start-button");
+var startBtn = document.querySelector("#start-btn");
 var codeQuizContent = document.querySelector("#quiz-content");
 
 // set initial time left at 60 sec until first question is given
@@ -76,7 +74,7 @@ var createTimer = function () {
     var timer = setInterval(function () {
 
         // find the time left and print it to screen
-        document.querySelector("timer").textContent = "You have " + timeLeft + " seconds remaining."
+        document.getElementById("timer").textContent = "You have " + timeLeft + " seconds remaining.";
 
         // reduce time by 1
         timeLeft--;
@@ -85,11 +83,11 @@ var createTimer = function () {
         if (timeLeft === 0 || timeLeft < 0) {
 
             // stop timer 
-            document.querySelector("timer").textContent = "There is no time remaining."
+            document.getElementById("timer").textContent = "There is no time remaining."
             alert("The quiz is now finished. Thanks for playing!")
 
-            // end quiz processes
-                endQuiz()
+            // begin the process of saving initials + score
+                highscoreInfo(timer)
         }
 
     }, 1000);
@@ -100,12 +98,17 @@ var createTimer = function () {
 function questionOne() {
 
     // clear content from codeQuizContent
-    codeQuizContent = innerHTML = "";
+    codeQuizContent.innerHTML = "";
 
     // print question to the quiz area
-    questionText = document.querySelector("h2");
+    questionText = document.createElement("h2");
     // set class for styling
     questionText.className = "question-text";
+
+    // create container to hold buttons
+    buttonContainer = document.createElement("div");
+    // set class for styling
+    buttonContainer.className = "btn-container";
 
     // create buttons to hold answers
     var buttonA = document.createElement("button");
@@ -195,12 +198,17 @@ function questionOneValidation () {
 function questionTwo() {
 
     // clear content from codeQuizContent
-    codeQuizContent = innerHTML = "";
+    codeQuizContent.innerHTML = "";
 
     // print question to the quiz area
-    questionText = document.querySelector("h2");
+    questionText = document.createElement("h2");
     // set class for styling
     questionText.className = "question-text";
+
+    // create container to hold buttons
+    buttonContainer = document.createElement("div");
+    // set class for styling
+    buttonContainer.className = "btn-container";
 
     // create buttons to hold answers
     var buttonA = document.createElement("button");
@@ -290,12 +298,17 @@ function questionTwoValidation () {
 function questionThree() {
 
     // clear content from codeQuizContent
-    codeQuizContent = innerHTML = "";
+    codeQuizContent.innerHTML = "";
 
     // print question to the quiz area
-    questionText = document.querySelector("h2");
+    questionText = document.createElement("h2");
     // set class for styling
     questionText.className = "question-text";
+
+    // create container to hold buttons
+    buttonContainer = document.createElement("div");
+    // set class for styling
+    buttonContainer.className = "btn-container";
 
     // create buttons to hold answers
     var buttonA = document.createElement("button");
@@ -385,12 +398,17 @@ function questionThreeValidation () {
 function questionFour() {
 
     // clear content from codeQuizContent
-    codeQuizContent = innerHTML = "";
+    codeQuizContent.innerHTML = "";
 
     // print question to the quiz area
-    questionText = document.querySelector("h2");
+    questionText = document.createElement("h2");
     // set class for styling
     questionText.className = "question-text";
+
+    // create container to hold buttons
+    buttonContainer = document.createElement("div");
+    // set class for styling
+    buttonContainer.className = "btn-container";
 
     // create buttons to hold answers
     var buttonA = document.createElement("button");
@@ -480,12 +498,18 @@ function questionFourValidation () {
 function questionFive() {
 
     // clear content from codeQuizContent
-    codeQuizContent = innerHTML = "";
+    codeQuizContent.innerHTML = "";
 
     // print question to the quiz area
-    questionText = document.querySelector("h2");
+    questionText = document.createElement("h2");
+
     // set class for styling
     questionText.className = "question-text";
+
+    // create container to hold buttons
+    buttonContainer = document.createElement("div");
+    // set class for styling
+    buttonContainer.className = "btn-container";
 
     // create buttons to hold answers
     var buttonA = document.createElement("button");
@@ -653,14 +677,6 @@ function loadScores() {
     codeQuizContent.innerHTML = "";
     clearInterval(timer);
 
-    // retrieve the arrays from localStorage
-    var highscores = localStorage.getItem(highscores);
-    var players = localStorage.getItem(players);
-
-    // parse the info in the arrays so it can be used
-    highscores = JSON.parse(highscores);
-    players = JSON.parse(players);
-
     var header = document.createElement("h2");
     header.textContent = "Here are the highscores for this quiz:"
 
@@ -673,6 +689,14 @@ function loadScores() {
 
     // append the list to the page
     codeQuizContent.appendChild(records);
+
+    // retrieve the arrays from localStorage
+    var highscores = localStorage.getItem(highscores);
+    var players = localStorage.getItem(players);
+
+    // parse the info in the arrays so it can be used
+    highscores = JSON.parse(highscores);
+    players = JSON.parse(players);
 
     // loop through the arrays to show all available records
     for (var i = 0; i < players.length; i++) {
@@ -698,10 +722,20 @@ function loadScores() {
     codeQuizContent.appendChild(restartQuizButton);
 };
 
-questionOne();
+// function to start quiz
+function startQuiz(){
 
+    debugger;
 
+    // create the timer + start it
+    createTimer();
 
+    // start asking questions
+    questionOne();
+}
 
+// button handler for the START button
+startBtn.addEventListener("click", startQuiz());
 
-
+// button handler for the HIGHSCORES button
+highScoreRecord.addEventListener("click", loadScores());
