@@ -1,24 +1,111 @@
-/* body {
-    text-align: center;
+* {
+    font-family: fantasy;
 }
 
-.q-and-a-section {
-text-align: center;
-}
-
-body ol {
+body {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-image: linear-gradient(darkcyan, cyan, darkcyan);
+}
+
+header {
+    display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.timer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: lightcoral;
+}
+
+.high-scores {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: salmon;
+}
+
+.start-btn {
+    margin-top: 100px;
+    background-color: salmon;
+}
+
+.question-text {
+    font-weight: bolder;
+}
+
+.btn-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
     margin: 10px;
 }
 
-.button-a, .button-b, .button-c, .button-d {
+.answer-to-question {
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin: 20px;
+    flex-wrap: wrap;
+    justify-content: left;
+    flex-direction: row;
+    margin: 5px;
+
+    background-color: lightblue;
+}
+
+.user-initials {
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    background-color: lightblue;
+}
+
+#user-initials {
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    background-color: lightblue;
+}
+
+#save-btn {
+    background-color: salmon;
+}
+
+.save-btn {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        background-color: salmon;
+}
+
+.list-of-players {
 
 }
 
-.button-b, .button-c, .button-d */
+.restart-button {
+    background-color: salmon;
+}
