@@ -39,9 +39,28 @@ main {
     background-color: salmon;
 }
 
+.intro-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    margin: 30px;
+    margin-bottom: 0px;
+}
+
+.intro {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 5px;
+}
+
 .start-btn {
-    margin-top: 100px;
+    margin-top: 30px;
     background-color: salmon;
+    font-size: 30px
 }
 
 .question-text {
@@ -108,4 +127,8 @@ main {
 
 .restart-button {
     background-color: salmon;
+}
+
+button {
+    border-radius: 50px;
 }
